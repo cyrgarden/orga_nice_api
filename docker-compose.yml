@@ -1,0 +1,50 @@
+version: "3.9"
+services:
+  api:
+    build: ./api
+    volumes:
+      - ./api/app:/code/app
+    ports:
+      - 80:80
+    env_file:
+      - ./api/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+    networks:
+      - fastapiXdocker
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - ./db/data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    env_file:
+      - ./db/.env
+    networks:
+      - fastapiXdocker
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-q",
+          "-d",
+          "${POSTGRES_DB}",
+          "-U",
+          "${POSTGRES_USER}"
+        ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+  adminer:
+    image: adminer
+    ports:
+      - 8181:8080
+    networks:
+      - fastapiXdocker
+networks:
+  fastapiXdocker:
+    driver: bridge
