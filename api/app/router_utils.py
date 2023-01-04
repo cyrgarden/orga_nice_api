@@ -10,6 +10,7 @@ import app.crud.user as crud_user
 
 # Dependency
 
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def get_db():
     db = SessionLocal()
