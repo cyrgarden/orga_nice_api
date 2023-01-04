@@ -1,13 +1,11 @@
 import os
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt  # type: ignore
 from passlib.context import CryptContext  # type: ignore
 from pydantic import BaseModel
 import app.crud.user as crud_user
 
-load_dotenv()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRET_KEY = os.getenv("AUTH_SECRET_KEY")
 ALGORITHM = "HS256"
