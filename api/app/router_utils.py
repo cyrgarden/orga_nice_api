@@ -8,10 +8,13 @@ from sqlalchemy import create_engine
 
 import app.crud.user as crud_user
 
+SQLALCHEMY_DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
 # Dependency
 
-engine = create_engine()
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL
+    )
 models.Base.metadata.create_all(engine)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
