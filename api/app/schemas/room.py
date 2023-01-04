@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from app.schemas.utils import OrderBy, Search
 
 # Schema
 
