@@ -23,7 +23,7 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    username: str | None = ''
+    username: str
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
