@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 import sqlalchemy  # type: ignore
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy import create_engine
+from app import models
 
 import app.crud.user as crud_user
 
