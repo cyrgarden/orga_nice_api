@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 import app.crud.user as crud
 import app.models as models
 import app.schemas.user as schemas
-import app.app.get_db as get_db
+from app.router_utils import get_db
 
 from .database import SessionLocal, engine
 
