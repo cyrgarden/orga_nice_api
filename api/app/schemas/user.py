@@ -21,7 +21,10 @@ class Item(ItemBase):
 
 
 class UserBase(BaseModel):
-    email: str
+    username: str
+    password: str | None
+    admin: bool = False
+
 
 
 class UserCreate(UserBase):
