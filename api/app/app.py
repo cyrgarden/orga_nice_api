@@ -1,6 +1,5 @@
 from datetime import timedelta
 import os
-from dotenv import load_dotenv
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.openapi.utils import get_openapi
@@ -11,7 +10,6 @@ from app.crud.user import new_user
 from app.router_utils import *
 
 
-load_dotenv()
 
 app = FastAPI()
 
