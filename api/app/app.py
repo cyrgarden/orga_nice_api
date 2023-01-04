@@ -1,61 +1,68 @@
-from typing import List
-from fastapi import Depends, FastAPI, HTTPException
-from sqlalchemy.orm import Session
+from datetime import timedelta
+import os
+from dotenv import load_dotenv
+from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.openapi.utils import get_openapi
+from sqlalchemy.orm import Session  # type: ignore
+from app import auth
+from app.crud.user import new_user
 
-import app.crud.user as crud
-import app.models as models
-import app.schemas.user as schemas
-from app.routers.room import router as room_router
+from app.router_utils import *
 
-from .database import SessionLocal, engine
 
-models.Base.metadata.create_all(bind=engine)
+load_dotenv()
 
 app = FastAPI()
 
 
-# Dependency
-def get_db():
-    db = SessionLocal()
+def hw_info_api_schema():
+    openapi_schema = get_openapi(
+        title="Hardware Info API",
+        version="0.1",
+        description="Find hardware components information and compatibility",
+        routes=app.routes,
+    )
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+
+app.openapi = hw_info_api_schema  # type: ignore
+
+
+@app.on_event("startup")
+def startup_event():
+    print("Verifying user creation")
     try:
-        yield db
-    finally:
+        db = SessionLocal()
+        new_user(
+            db,
+            os.getenv("API_USERNAME", default="user"),
+            auth.get_password_hash(os.getenv("API_PASSWORD", default="password")),
+            True,
+        )
         db.close()
+    except:
+        pass
 
 
-@app.post("/users/", response_model=schemas.User)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email=user.email)
-    if db_user:
-        raise HTTPException(status_code=400, detail="Email already registered")
-    return crud.create_user(db=db, user=user)
+# Auth
 
 
-@app.get("/users/", response_model=List[schemas.User])
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    users = crud.get_users(db, skip=skip, limit=limit)
-    return users
-
-
-@app.get("/users/{user_id}", response_model=schemas.User)
-def read_user(user_id: int, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, user_id=user_id)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return db_user
-
-
-@app.post("/users/{user_id}/items/", response_model=schemas.Item)
-def create_item_for_user(
-    user_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)
+@app.post("/token", response_model=auth.Token, tags=["Auth"])
+async def login_for_access_token(
+    form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
-    return crud.create_user_item(db=db, item=item, user_id=user_id)
+    user = auth.authenticate_user(db, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = auth.create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
 
-
-@app.get("/items/", response_model=List[schemas.Item])
-def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    items = crud.get_items(db, skip=skip, limit=limit)
-    return items
-
-
-app.include_router(room_router)
