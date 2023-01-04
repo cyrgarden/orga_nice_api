@@ -24,7 +24,7 @@ class User(Base):
     rooms = relationship(
         "Room",
         secondary = UserRoomCompat,
-        back_populates="users"
+        back_populates="users",
         uselist=True,
     )
 
