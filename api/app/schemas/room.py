@@ -9,11 +9,11 @@ class RoomBase(BaseModel):
     
 
 
-class RoomCreate(ProcessorBase):
+class RoomCreate(RoomBase):
    users : list[int] = []
 
 
-class Room(ProcessorBase):
+class Room(RoomBase):
     id: int
 
     class Config:
