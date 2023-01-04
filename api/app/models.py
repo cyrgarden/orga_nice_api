@@ -6,7 +6,7 @@ from .database import Base
 
 UserRoomCompat = Table(
     "user_room_compat",
-    Base.metadata
+    Base.metadata,
     Column("user_id", ForeignKey("users.id")),
     Column("room_id", ForeignKey("rooms.id")),
     UniqueConstraint("user_id", "room_id"),
