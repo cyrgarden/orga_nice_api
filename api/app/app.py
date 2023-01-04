@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 import app.crud.user as crud
 import app.models as models
 import app.schemas.user as schemas
+from app.routers.room import router as room_router
 
 from .database import SessionLocal, engine
 
@@ -55,3 +56,6 @@ def create_item_for_user(
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
     return items
+
+
+app.include_router(room_router)
