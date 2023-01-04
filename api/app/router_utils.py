@@ -11,9 +11,7 @@ import app.crud.user as crud_user
 
 # Dependency
 
-engine = create_engine(
-    DB_CONNECTION_STRING,
-)
+engine = create_engine()
 models.Base.metadata.create_all(engine)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
