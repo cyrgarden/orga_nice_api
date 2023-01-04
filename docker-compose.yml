@@ -1,5 +1,19 @@
+ 
 version: "3.9"
 services:
+  reverseproxy:
+    image: nginx:latest
+    container_name: nginxrp
+    volumes:
+      - ./nginx/core.conf:/etc/nginx/conf.d/core.conf
+      - ./nginx/proxy.conf:/etc/nginx/conf.d/proxy.conf
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - api
+      - db
+
   api:
     build: ./api
     volumes:
