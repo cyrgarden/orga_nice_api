@@ -1,5 +1,6 @@
 import os
 from datetime import datetime, timedelta
+from typing import Union
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt  # type: ignore
 from passlib.context import CryptContext  # type: ignore
@@ -23,7 +24,7 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    username: str
+    username: Union[str, None] = None
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
