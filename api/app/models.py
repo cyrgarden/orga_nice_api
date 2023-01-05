@@ -67,3 +67,15 @@ class Room(Base):
         back_populates="all_rooms", 
         uselist= True,
     )
+
+class Logs(Base):
+    __tablename__ = "logs"
+
+    id = Column(INTEGER(11), primary_key=True, autoincrement=True)
+    user_id: Column[Optional[int]] = Column(ForeignKey("users.id"), index=True)
+    timestamp = Column(DateTime)
+    action = Column(String(2048))
+
+    user = relationship("User")
+
+
