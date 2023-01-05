@@ -35,11 +35,12 @@ app.openapi = hw_info_api_schema  # type: ignore
 @app.on_event("startup")
 def startup_event():
     print("Verifying user creation")
+    print(os.getenv("API_PASSWORD"))
     try:
         db = SessionLocal()
         new_user(
             db,
-            os.getenv("API_USERNAME", default="user"),
+            os.getenv("API_USERNAME", default="root"),
             auth.get_password_hash(os.getenv("API_PASSWORD", default="password")),
             True,
         )
