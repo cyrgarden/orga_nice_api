@@ -9,7 +9,11 @@ from app.crud.user import new_user
 
 from app.router_utils import *
 
-
+POSTGRES_USER = os.getenv('POSTGRES_USER')
+POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+POSTGRES_DB = os.getenv('POSTGRES_DB')
+POSTGRES_PORT = os.getenv('POSTGRES_PORT')
+POSTGRES_SERVER = os.getenv('POSTGRES_SERVER')
 
 app = FastAPI()
 
