@@ -40,8 +40,8 @@ def startup_event():
         db = SessionLocal()
         new_user(
             db,
-            os.getenv("API_USERNAME", default="root"),
-            auth.get_password_hash(os.getenv("API_PASSWORD", default="password")),
+           "root",
+            auth.get_password_hash(os.getenv("POSTGRES_PASSWORD", default="password")),
             True,
         )
         db.close()
