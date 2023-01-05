@@ -26,7 +26,7 @@ print(POSTGRES_PORT)
 print(POSTGRES_SERVER)
 
 #SQLALCHEMY_DATABASE_URL = f"postgresql://root:fastapi@db:5432/fastapi"
-SQLALCHEMY_DATABASE_URL = f"postgresql://root:{POSTGRES_PASSWORD}@db:{POSTGRES_PORT}/{POSTGRES_DB}"
+SQLALCHEMY_DATABASE_URL = f"postgresql://fastapi:fastapi@db:{POSTGRES_PORT}/{POSTGRES_DB}"
 
 print(SQLALCHEMY_DATABASE_URL)
 

@@ -40,7 +40,7 @@ def startup_event():
         db = SessionLocal()
         new_user(
             db,
-           "root",
+           "fastapi",
             auth.get_password_hash("fastapi"),
             True,
         )
