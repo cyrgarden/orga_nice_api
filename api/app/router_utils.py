@@ -23,7 +23,7 @@ SQLALCHEMY_DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{PO
 
 
 engine = create_engine(
-    DB_CONNECTION_STRING,
+    SQLALCHEMY_DATABASE_URL,
 )
 models.Base.metadata.create_all(engine)
 
