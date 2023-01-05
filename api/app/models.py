@@ -23,7 +23,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(255), unique=True)
     password = Column(String(255))
-    admin = Column(TINYINT(1))
+    admin = Column(Boolean,default = False)
 
     items = relationship("Item", back_populates="owner")
     rooms = relationship(
