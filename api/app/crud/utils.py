@@ -38,7 +38,7 @@ def get_all(
     offset: int,
     orderby: OrderBy,
     reverse: bool,
-    criteria: Search | None,
+    criteria: Union[Search, None] = None
 ):
     print("FOR UTILS GET_ALL FUNCTION: \n ")
     print(f"model : {model}")
