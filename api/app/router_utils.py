@@ -21,6 +21,15 @@ POSTGRES_SERVER = os.getenv('POSTGRES_SERVER')
 
 SQLALCHEMY_DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
+
+engine = create_engine(
+    DB_CONNECTION_STRING,
+)
+models.Base.metadata.create_all(engine)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
 # Dependency
 
 
