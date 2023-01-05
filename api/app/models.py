@@ -5,6 +5,7 @@ from .database import Base
 from sqlalchemy.dialects.mysql import INTEGER, TINYINT  # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from sqlalchemy.ext.declarative import declarative_base  # type: ignore
+from typing import Optional
 
 
 
