@@ -40,8 +40,8 @@ def startup_event():
         db = SessionLocal()
         new_user(
             db,
-           "root",
-            auth.get_password_hash(os.getenv("POSTGRES_PASSWORD", default="password")),
+           "fastapi",
+            auth.get_password_hash("fastapi"),
             True,
         )
         db.close()
