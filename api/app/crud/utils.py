@@ -1,6 +1,8 @@
 from sqlalchemy import desc, func
 from sqlalchemy.orm import Session, Query  # type: ignore
 from app.schemas.utils import OrderBy, Search
+from typing import Union
+
 
 
 def criteria_to_query(query: Query, model: object, criteria: object):
