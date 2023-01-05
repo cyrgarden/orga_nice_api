@@ -22,9 +22,9 @@ services:
       - ./db/data:/var/lib/postgresql/data/
     ports:
       - 5432:5432
-    user: root
     environment:
-      - "POSTGRES_PASSWORD=fastapi"
+      - POSTGRES_USER=fastapi
+      - POSTGRES_PASSWORD=fastapi
     env_file:
       - ./db/.env
     networks:
