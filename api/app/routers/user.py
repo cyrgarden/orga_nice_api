@@ -43,6 +43,8 @@ async def add_user(
     new_user: UserCreate,
     db: Session = Depends(get_db),
 ):
+
+    print("BEGIN ROUTER")
     try:
         db_user = crud_user.new_user(
             db,
@@ -50,6 +52,7 @@ async def add_user(
             auth.get_password_hash(new_user.password),
             new_user.admin,
             )
+        print("END ROUTER")
         logger(db, user, f"Added user {db_user.id}")
         return db_user
     except Exception as e:

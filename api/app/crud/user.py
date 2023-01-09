@@ -8,6 +8,7 @@ def get_user(db: Session, username: str):
 
 
 def new_user(db: Session, user: str, password: str, is_admin: bool):
+    print("CRUD : ")
     db_user = models.User(username=user, password=password, admin=is_admin)
     db.add(db_user)
     db.commit()
