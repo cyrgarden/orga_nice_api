@@ -53,7 +53,7 @@ async def add_user(
             new_user.admin,
             )
         print("END ROUTER")
-        logger(db, user, f"Added user {db_user.id}")
+        #logger(db, user, f"Added user {db_user.id}")
         return db_user
     except Exception as e:
         raise error_to_status_code(e)
