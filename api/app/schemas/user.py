@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class UserBase(BaseModel):
     username: str
-    password: str | None
+    password: Union[str, None] = None
     admin: bool = False
 
 
