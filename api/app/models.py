@@ -9,13 +9,13 @@ from typing import Optional
 
 
 
-UserRoomCompat = Table(
+"""UserRoomCompat = Table(
     "user_room_compat",
     Base.metadata,
     Column("user_id", ForeignKey("users.id")),
     Column("room_id", ForeignKey("rooms.id")),
     UniqueConstraint("user_id", "room_id"),
-)
+)"""
 
 class User(Base):
     __tablename__ = "users"
