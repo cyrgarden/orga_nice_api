@@ -42,7 +42,6 @@ async def delete_user(
 async def add_user(
     new_user: UserCreate,
     db: Session = Depends(get_db),
-    user=Depends(get_current_user),
 ):
     if user.admin:
         try:
