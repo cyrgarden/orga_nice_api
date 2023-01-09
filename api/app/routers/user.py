@@ -43,23 +43,18 @@ async def add_user(
     new_user: UserCreate,
     db: Session = Depends(get_db),
 ):
-    if user.admin:
-        try:
-            db_user = crud_user.new_user(
-                db,
-                new_user.username,
-                auth.get_password_hash(new_user.password),
-                new_user.admin,
+    try:
+        db_user = crud_user.new_user(
+            db,
+            new_user.username,
+            auth.get_password_hash(new_user.password),
+            new_user.admin,
             )
-            logger(db, user, f"Added user {db_user.id}")
-            return db_user
-        except Exception as e:
-            raise error_to_status_code(e)
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authorized"
-        )
-
+        logger(db, user, f"Added user {db_user.id}")
+        return db_user
+    except Exception as e:
+        raise error_to_status_code(e)
+   
 
 @router.get("/me", response_model=User, tags=["Auth"])
 async def read_users_me(user=Depends(get_current_user)):
