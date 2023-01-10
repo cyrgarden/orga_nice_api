@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException, status
 import app.crud.room as crud_room
 import app.models as models
-import app.schemas.room as schemas
+from app.schemas.room import Room, RoomCreate
 from app.router_utils import get_db
 
 
@@ -31,13 +31,13 @@ async def new_prise(
         raise error_to_status_code(e)
 
 
-@router.get("/room/", response_model=List[schemas.Room])
+@router.get("/room/", response_model=List[Room])
 def get_all_rooms(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     rooms = crud.get_all_rooms(db, skip=skip, limit=limit)
     return rooms
 
 
-@router.get("/rooms/{room_id}", response_model=schemas.Room)
+@router.get("/rooms/{room_id}", response_model=Room)
 def read_user(room_id: int, db: Session = Depends(get_db)):
     db_room = crud.get_room_by_id(db, room_id=room_id)
     if db_user is None:
