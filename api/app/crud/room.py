@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app import models
-from app.schemas.room import RoomCreate
+from app.schemas.room import Room, RoomCreate
 
 
 def create_room(db: Session, room: RoomCreate):
@@ -13,15 +13,15 @@ def create_room(db: Session, room: RoomCreate):
 
 
 def get_all_rooms(db: Session):
-    return db.query(models.Rooms).all()
+    return db.query(models.Room).all()
 
 
 def get_room_by_id(db: Session, room_id: int):
-    return db.query(models.Rooms).filter(models.Room.id == room_id).first()
+    return db.query(models.Room).filter(models.Room.id == room_id).first()
 
 
 def delete_user(db: Session, room_id: int):
-    db_room = db.query(models.Rooms).filter(models.Room.id == room_id).first()
+    db_room = db.query(models.Room).filter(models.Room.id == room_id).first()
     if db_room is None:
         return None
     db.delete(db_room)

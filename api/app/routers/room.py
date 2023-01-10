@@ -32,7 +32,7 @@ async def new_room(
 
 @router.get("/room/", response_model=List[Room])
 def get_all_rooms(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    rooms = crud_room.get_all_rooms(db, skip=skip, limit=limit)
+    rooms = crud_room.get_all_rooms(db)
     return rooms
 
 
