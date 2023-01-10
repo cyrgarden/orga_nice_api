@@ -12,7 +12,7 @@ router: APIRouter = APIRouter(
 )
 
 @router.put("/", response_model=Room, tags=["Room"])
-async def new_prise(
+async def new_room(
     room: RoomCreate,
     db: Session = Depends(get_db),
     user=Depends(get_current_user),
@@ -24,7 +24,7 @@ async def new_prise(
         res = crud_room.create_room(db, room)
         if res is None:
             raise HTTPException(status_code=404, detail="Error while creating a room ")
-        logger(db, user, f"Created gpu {prise.label}")
+        logger(db, user, f"Created room {room.label}")
         return res
     except Exception as e:
         raise error_to_status_code(e)
@@ -32,13 +32,13 @@ async def new_prise(
 
 @router.get("/room/", response_model=List[Room])
 def get_all_rooms(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    rooms = crud.get_all_rooms(db, skip=skip, limit=limit)
+    rooms = crud_room.get_all_rooms(db, skip=skip, limit=limit)
     return rooms
 
 
 @router.get("/rooms/{room_id}", response_model=Room)
-def read_user(room_id: int, db: Session = Depends(get_db)):
-    db_room = crud.get_room_by_id(db, room_id=room_id)
+def get_room_by_id(room_id: int, db: Session = Depends(get_db)):
+    db_room = crud_room.get_room_by_id(db, room_id=room_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="Room not found")
     return db_room
