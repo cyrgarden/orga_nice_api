@@ -10,6 +10,7 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+    all_rooms : list[int] = []
 
 
 class User(UserBase):

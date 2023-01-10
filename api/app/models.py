@@ -9,13 +9,13 @@ from typing import Optional
 
 
 
-"""UserRoomCompat = Table(
+UserRoomCompat = Table(
     "user_room_compat",
     Base.metadata,
     Column("user_id", ForeignKey("users.id")),
     Column("room_id", ForeignKey("rooms.id")),
     UniqueConstraint("user_id", "room_id"),
-)"""
+)
 
 class User(Base):
     __tablename__ = "users"
@@ -24,6 +24,12 @@ class User(Base):
     username = Column(String(255), unique=True)
     password = Column(String(255))
     admin = Column(Boolean, default = False)
+    all_rooms = relationship(
+        "Room",
+        secondary= UserRoomCompat,
+        back_populates="users", 
+        uselist= True,
+    )
     
 
 """
@@ -36,6 +42,7 @@ class Recommandation(Base):
     recommandation_type = Column(String, index=True)
     place = Column(String, index=True)
     availabilites = Column(String, index=True)
+"""
     
 class Room(Base):
     __tablename__ = "rooms"
@@ -50,7 +57,7 @@ class Room(Base):
         back_populates="all_rooms", 
         uselist= True,
     )
-"""
+
 
 
 class Logs(Base):
