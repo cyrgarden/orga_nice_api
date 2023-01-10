@@ -4,7 +4,7 @@ from app.schemas.room import Room, RoomCreate
 
 
 def create_room(db: Session, room: RoomCreate):
-    db_room = models.Prise(**prise.dict())
+    db_room = models.Room(**prise.dict())
     db.add(db_room)
     db.commit()
     db.refresh(db_room)
