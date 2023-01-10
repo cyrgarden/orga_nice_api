@@ -8,6 +8,7 @@ from app import auth
 from app.crud.user import new_user
 from app.routers.user import router as user_router
 from app.routers.log import router as log_router
+from app.routers.room import router as room_router
 
 from app.router_utils import *
 
@@ -73,3 +74,4 @@ async def login_for_access_token(
 
 app.include_router(user_router)
 app.include_router(log_router)
+app.include_router(room_router)
