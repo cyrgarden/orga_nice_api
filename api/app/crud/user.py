@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
-
 from app import models
+from app.schemas.room import RoomCreate
+
 
 
 def get_user(db: Session, username: str):
