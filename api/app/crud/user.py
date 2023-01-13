@@ -33,7 +33,7 @@ def delete_user(db: Session, user_id: int):
     return db_user
 
 
-def get_user_rooms(db:Session, user_id): 
+def get_user_rooms(db:Session, user_id:int): 
     user = get_user_by_id(db, user_id)
     print(user.all_rooms)
     return user.all_rooms

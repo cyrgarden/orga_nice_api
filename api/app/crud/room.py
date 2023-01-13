@@ -32,4 +32,7 @@ def delete_user(db: Session, room_id: int):
     db.commit()
     return db_room
 
-    
+def get_room_users(db:Session, room_id:int): 
+    room = get_room_by_id(db, room_id)
+    print(room.users)
+    return room.users

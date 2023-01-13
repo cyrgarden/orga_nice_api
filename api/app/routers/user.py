@@ -26,13 +26,11 @@ async def get_users(db: Session = Depends(get_db), user=Depends(get_current_user
 
 @router.get("/{user_id}/rooms", response_model=list[Room], tags=["Auth"])
 async def get_user_rooms(user_id:int, db: Session = Depends(get_db), user=Depends(get_current_user)):
-    if user:
-        rooms = crud_user.get_user_rooms(db, user_id)
-        return rooms
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authorized"
-        )
+    users = crud_room.get_user_rooms(db, prise_ueid)
+    if users is None:
+        raise HTTPException(status_code=404, detail="Prise not found")
+    return res
+
 
 
 @router.delete("/{user_id}", response_model=bool, tags=["Auth"])
