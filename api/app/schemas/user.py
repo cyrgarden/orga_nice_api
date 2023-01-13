@@ -1,5 +1,6 @@
 from typing import List, Union
 from pydantic import BaseModel
+from app.schemas.room import Room
 
 class UserBase(BaseModel):
     username: str
@@ -15,6 +16,7 @@ class UserCreate(UserBase):
 
 class User(UserBase):
     id: int
+    rooms : Room
 
     class Config:
         orm_mode = True
