@@ -31,7 +31,7 @@ async def new_room(
     except Exception as e:
         raise error_to_status_code(e)
 
-@router.get("/{room_id}/users", response_model=list[User], tags=["Room"])
+@router.get("/{room_id}/users", response_model=list[User], tags=["Rooms"])
 async def get_room_users(room_id:int, db: Session = Depends(get_db)):
     users = crud_room.get_room_users(db, room_id)
     if users is None:
