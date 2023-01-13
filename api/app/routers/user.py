@@ -27,7 +27,7 @@ async def get_users(db: Session = Depends(get_db), user=Depends(get_current_user
 @router.get("/{user_id}/rooms", response_model=list[Room], tags=["Auth"])
 async def get_user_rooms(user_id:int, db: Session = Depends(get_db), user=Depends(get_current_user)):
     rooms = crud_user.get_user_rooms(db, user_id)
-    if users is None:
+    if rooms is None:
         raise HTTPException(status_code=404, detail="Rooms not found")
     return rooms
 
