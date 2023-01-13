@@ -26,7 +26,7 @@ async def get_users(db: Session = Depends(get_db), user=Depends(get_current_user
 
 @router.get("/{user_id}/rooms", response_model=list[Room], tags=["Auth"])
 async def get_user_rooms(user_id:int, db: Session = Depends(get_db), user=Depends(get_current_user)):
-    users = crud_room.get_user_rooms(db, prise_ueid)
+    users = crud_user.get_user_rooms(db, prise_ueid)
     if users is None:
         raise HTTPException(status_code=404, detail="Prise not found")
     return res
