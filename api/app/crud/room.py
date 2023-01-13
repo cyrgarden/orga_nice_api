@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from app import models
 from app.schemas.room import Room, RoomCreate
 from app.schemas.room import User
-import app.crud.user, as crud_user
+import app.crud.user as crud_user
 
 
 def create_room(db: Session, room: RoomCreate, user_id: int):
