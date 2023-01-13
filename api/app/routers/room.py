@@ -11,8 +11,9 @@ router: APIRouter = APIRouter(
     tags=["Rooms"],
 )
 
-@router.put("/", response_model=Room, tags=["Rooms"])
+@router.put("/{user_id}", response_model=Room, tags=["Rooms"])
 async def new_room(
+    user_id: int, 
     room: RoomCreate,
     db: Session = Depends(get_db),
     user=Depends(get_current_user),
@@ -21,7 +22,7 @@ async def new_room(
     Create a new room
     """
     try:
-        res = crud_room.create_room(db, room)
+        res = crud_room.create_room(db, room, user_id)
         if res is None:
             raise HTTPException(status_code=404, detail="Error while creating a room ")
         logger(db, user, f"Created room {room.label}")
@@ -42,3 +43,4 @@ def get_room_by_id(room_id: int, db: Session = Depends(get_db)):
     if db_room is None:
         raise HTTPException(status_code=404, detail="Room not found")
     return db_room
+

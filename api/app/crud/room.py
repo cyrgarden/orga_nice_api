@@ -1,10 +1,14 @@
 from sqlalchemy.orm import Session
 from app import models
 from app.schemas.room import Room, RoomCreate
+from app.schemas.room import User
+import app.crud.user, as crud_user
 
 
-def create_room(db: Session, room: RoomCreate):
+def create_room(db: Session, room: RoomCreate, user_id: int):
+    user = crud_user.get_user_by_id(db, user_id)
     db_room = models.Room(**room.dict())
+    db_room.users.append(user)
     db.add(db_room)
     db.commit()
     db.refresh(db_room)
@@ -27,3 +31,5 @@ def delete_user(db: Session, room_id: int):
     db.delete(db_room)
     db.commit()
     return db_room
+
+    

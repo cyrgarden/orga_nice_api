@@ -16,7 +16,6 @@ class UserCreate(UserBase):
 
 class User(UserBase):
     id: int
-    rooms : list[Room]
 
     class Config:
         orm_mode = True
