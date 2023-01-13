@@ -31,3 +31,9 @@ def delete_user(db: Session, user_id: int):
     db.delete(db_user)
     db.commit()
     return db_user
+
+
+def get_user_rooms(db:Session, user_id): 
+    user = get_user_by_id(db, user_id)
+    print(user.all_rooms)
+    return user.all_rooms

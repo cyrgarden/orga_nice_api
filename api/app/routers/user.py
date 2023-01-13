@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 import app.auth as auth
 from app.router_utils import get_db, get_current_user, logger, error_to_status_code
 from app.schemas.user import User, UserCreate
+from app.schemas.room import Room, RoomCreate
 import app.crud.user as crud_user
 
 router: APIRouter = APIRouter(
@@ -18,6 +19,16 @@ async def get_users(db: Session = Depends(get_db), user=Depends(get_current_user
         for user in users:
             user.password = None
         return users
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authorized"
+        )
+
+@router.get("/{user_id}/rooms", response_model=list[Room], tags=["Auth"])
+async def get_user_rooms(user_id:int, db: Session = Depends(get_db), user=Depends(get_current_user)):
+    if user:
+        rooms = crud_user.get_user_rooms(db, user_id)
+        return rooms
     else:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authorized"
