@@ -32,7 +32,7 @@ class User(Base):
     )
     
 
-"""
+
 class Recommandation(Base):
     __tablename__ = "recommandations"
 
@@ -42,7 +42,7 @@ class Recommandation(Base):
     recommandation_type = Column(String, index=True)
     place = Column(String, index=True)
     availabilites = Column(String, index=True)
-"""
+
     
 class Room(Base):
     __tablename__ = "rooms"

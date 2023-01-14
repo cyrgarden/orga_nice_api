@@ -22,3 +22,8 @@ class Recommandation(ProcessorBase):
     class Config:
         orm_mode = True
 
+
+class RecommandationOrderBy(OrderBy):
+    id = "id"
+    label = "name"
+
