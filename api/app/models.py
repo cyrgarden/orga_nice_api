@@ -42,6 +42,7 @@ class Recommandation(Base):
     recommandation_type = Column(String, index=True)
     place = Column(String, index=True)
     availabilites = Column(String, index=True)
+    url = Column(String, index=True)
 
     
 class Room(Base):
