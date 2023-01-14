@@ -22,7 +22,7 @@ UserEventParticipation = Table(
     Base.metadata,
     Column("user_id", ForeignKey("users.id")),
     Column("event_id", ForeignKey("events.id")),
-    UniqueConstraint("user_id", "event"),
+    UniqueConstraint("user_id", "event_id"),
 )
 
 
@@ -55,7 +55,7 @@ class Recommandation(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     price = Column(Float)
-    label = Column(String, index=True)
+    label = Column(String, index=True)t
     recommandation_type = Column(String, index=True)
     place = Column(String, index=True)
     availabilites = Column(String, index=True)
@@ -72,6 +72,7 @@ class Room(Base):
     label = Column(String, index=True)
     invite_link = Column(String, index=True)
     style = Column(String, index=True)
+    events = Column(Integer, list=True)
 
     users = relationship(
         "User",
