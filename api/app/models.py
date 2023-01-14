@@ -17,6 +17,17 @@ UserRoomCompat = Table(
     UniqueConstraint("user_id", "room_id"),
 )
 
+UserEventParticipation = Table(
+    "user_event_participation",
+    Base.metadata,
+    Column("user_id", ForeignKey("users.id")),
+    Column("event_id", ForeignKey("events.id")),
+    UniqueConstraint("user_id", "event"),
+)
+
+
+
+
 class User(Base):
     __tablename__ = "users"
 
@@ -28,6 +39,12 @@ class User(Base):
         "Room",
         secondary= UserRoomCompat,
         back_populates="users", 
+        uselist= True,
+    )
+    all_events = relationship(
+        "Event",
+        secondary= UserEventParticipation,
+        back_populates="participants", 
         uselist= True,
     )
     
@@ -43,6 +60,10 @@ class Recommandation(Base):
     place = Column(String, index=True)
     availabilites = Column(String, index=True)
     url = Column(String, index=True)
+    event_id: Column[Optional[int]] = Column(
+        ForeignKey("events.id"), index=True
+    )
+
 
     
 class Room(Base):
@@ -58,6 +79,24 @@ class Room(Base):
         back_populates="all_rooms", 
         uselist= True,
     )
+
+
+class Event(Base):
+    __tablename__ = "events"
+    id = Column(Integer, primary_key=True, index=True)
+    label = Column(String, index=True)
+    date = Column(String, index=True)
+    place = Column(String, index=True)
+    category = Column(String, index=True)
+    description = Column(String, index=True)
+
+    participants = relationship(
+        "User",
+        secondary= UserEventParticipation,
+        back_populates="all_rooms", 
+        uselist= True,
+    )
+
 
 
 

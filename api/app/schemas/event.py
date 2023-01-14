@@ -12,16 +12,16 @@ class EventBase(BaseModel):
     description: int
 
 
-class EventCreate(ProcessorBase):
-   pass
+class EventCreate(EventBase):
+   participants : list[int] = []
 
 
-class Event(ProcessorBase):
+class Event(EventBase):
     id: int
 
     class Config:
         orm_mode = True
 
 
-class ProcessorOrderBy(OrderBy):
+class EventOrderBy(OrderBy):
     id = "id"
