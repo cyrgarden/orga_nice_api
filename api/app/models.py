@@ -78,7 +78,7 @@ class Room(Base):
     label = Column(String, index=True)
     invite_link = Column(String, index=True)
     style = Column(String, index=True)
-    events = relationship("Event", back_populates="room", uselist=True)
+    events = relationship("Event", back_populates="room")
 
     users = relationship(
         "User",
@@ -98,7 +98,7 @@ class Event(Base):
     place = Column(String, index=True)
     category = Column(String, index=True)
     description = Column(String, index=True)
-    events = relationship("Room", back_populates="events")
+    room = relationship("Room", back_populates="events")
 
     participants = relationship(
         "User",
