@@ -8,7 +8,7 @@ class RoomBase(BaseModel):
     label: str
     invite_link : str
     style :str
-    events : List[Event] = []
+    
     
 
 
@@ -19,6 +19,7 @@ class RoomCreate(RoomBase):
 
 class Room(RoomBase):
     id: int
+    events : List[Event] = []
 
     class Config:
         orm_mode = True

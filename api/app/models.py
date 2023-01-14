@@ -69,10 +69,7 @@ class Recommandation(Base):
     place = Column(String, index=True)
     availabilites = Column(String, index=True)
     url = Column(String, index=True)
-    event_id: Column[Optional[int]] = Column(
-        ForeignKey("events.id"), index=True
-    )
-
+    
 
     
 class Room(Base):
