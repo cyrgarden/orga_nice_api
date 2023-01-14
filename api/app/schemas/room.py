@@ -1,4 +1,4 @@
-from typing import Set, Union
+from typing import Set, Union, List
 from pydantic import BaseModel
 from app.schemas.event import Event
 
