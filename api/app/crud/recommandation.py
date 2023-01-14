@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from app import models
+from app.crud.utils import get_all
 from app.schemas.recommandation import Recommandation, RecommandationCreate, RecommandationOrderBy
 
 
