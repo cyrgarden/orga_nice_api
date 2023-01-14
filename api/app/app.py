@@ -9,6 +9,7 @@ from app.crud.user import new_user
 from app.routers.user import router as user_router
 from app.routers.log import router as log_router
 from app.routers.room import router as room_router
+from app.routers.recommandation import router as recommandation_router
 
 from app.router_utils import *
 
