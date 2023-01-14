@@ -72,7 +72,7 @@ class Room(Base):
     label = Column(String, index=True)
     invite_link = Column(String, index=True)
     style = Column(String, index=True)
-    events = Column(Integer, list=True)
+    events = relationship("Events", uselist=True)
 
     users = relationship(
         "User",
