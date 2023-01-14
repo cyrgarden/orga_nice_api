@@ -17,6 +17,15 @@ UserRoomCompat = Table(
     UniqueConstraint("user_id", "room_id"),
 )
 
+
+"""RoomEventCompat = Table(
+    "room_event_compat",
+    Base.metadata,
+    Column("room_id", ForeignKey("rooms.id")),
+    Column("event_id", ForeignKey("events.id")),
+    UniqueConstraint("room_id", "event_id"),
+)"""
+
 UserEventParticipation = Table(
     "user_event_participation",
     Base.metadata,
@@ -92,7 +101,7 @@ class Event(Base):
     place = Column(String, index=True)
     category = Column(String, index=True)
     description = Column(String, index=True)
-    room = relationship("Event")
+    events = relationship("Room", back_populates="events")
 
     participants = relationship(
         "User",
