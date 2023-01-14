@@ -26,7 +26,7 @@ def create_recommandation(db: Session, reco: RecommandationCreate):
 
 def delete_recommandation(db: Session, reco_id: int):
     db_reco = db.query(models.Recommandation).filter(models.Recommandation.id == reco_id).first()
-    if db_prise is None:
+    if db_reco is None:
         return None
     db.delete(db_reco)
     db.commit()
