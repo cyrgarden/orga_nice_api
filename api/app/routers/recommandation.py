@@ -47,7 +47,6 @@ async def new_recommandation(
         res = crud_reco.create_recommandation(db, reco)
         if res is None:
             raise HTTPException(status_code=404, detail="Error while creating a room ")
-        logger(db, user, f"Created room {room.label}")
         return res
     except Exception as e:
         raise error_to_status_code(e)
