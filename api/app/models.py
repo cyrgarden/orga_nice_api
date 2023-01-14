@@ -94,7 +94,7 @@ class Event(Base):
     participants = relationship(
         "User",
         secondary= UserEventParticipation,
-        back_populates="all_rooms", 
+        back_populates="all_events", 
         uselist= True,
     )
 
