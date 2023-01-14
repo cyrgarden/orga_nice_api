@@ -76,3 +76,4 @@ async def login_for_access_token(
 app.include_router(user_router)
 app.include_router(log_router)
 app.include_router(room_router)
+app.include_router(recommandation_router)
