@@ -12,11 +12,11 @@ class RecommandationBase(BaseModel):
     url :str
 
 
-class RecommandationCreate(ProcessorBase):
+class RecommandationCreate(RecommandationBase):
    pass
 
 
-class Recommandation(ProcessorBase):
+class Recommandation(RecommandationBase):
     id: int
 
     class Config:
