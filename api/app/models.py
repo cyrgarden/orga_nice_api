@@ -98,6 +98,8 @@ class Event(Base):
     place = Column(String, index=True)
     category = Column(String, index=True)
     description = Column(String, index=True)
+
+    room_id = Column(Integer, ForeignKey("rooms.id"))
     room = relationship("Room", back_populates="events")
 
     participants = relationship(
