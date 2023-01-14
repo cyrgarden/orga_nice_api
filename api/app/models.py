@@ -55,7 +55,7 @@ class Recommandation(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     price = Column(Float)
-    label = Column(String, index=True)t
+    label = Column(String, index=True)
     recommandation_type = Column(String, index=True)
     place = Column(String, index=True)
     availabilites = Column(String, index=True)
