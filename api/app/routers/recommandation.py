@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app import models
-from app.schemas.recommandation import Recommandation, RecommandationCreate
+from app.schemas.recommandation import Recommandation, RecommandationCreate, RecommandationOrderBy
 import app.crud.recommandation as crud_reco 
 
 router: APIRouter = APIRouter(

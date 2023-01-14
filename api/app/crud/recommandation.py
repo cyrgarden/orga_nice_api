@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app import models
-from app.schemas.recommandation import Recommandation, RecommandationCreate
+from app.schemas.recommandation import Recommandation, RecommandationCreate, RecommandationOrderBy
 
 
 
@@ -9,7 +9,7 @@ def get_all_recommandation(
     db: Session,
     limit: int,
     offset: int,
-    orderby: PriseOrderBy,
+    orderby: RecommandationOrderBy,
     reverse: bool,
 ):
     return get_all(db, models.Recommandation, limit, offset, orderby, reverse, None)
