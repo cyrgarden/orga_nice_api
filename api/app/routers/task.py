@@ -31,7 +31,7 @@ async def get_Tasks(
     return res
 
 @router.put("/", response_model=Task, tags=["Tasks"])
-async def new_Task(
+async def new_task(
     task: TaskCreate,
     db: Session = Depends(get_db),
 ):
@@ -39,7 +39,7 @@ async def new_Task(
     Create a new Task
     """
     try:
-        res = crud_task.create_Task(db, task)
+        res = crud_task.create_task(db, task)
         if res is None:
             raise HTTPException(status_code=404, detail="Error while creating an Task ")
         return res
@@ -48,8 +48,8 @@ async def new_Task(
 
 
 @router.delete("/{Task_id}", response_model=bool, tags=["Tasks"])
-async def delete_Task(
-    Task_id: int, db: Session = Depends(get_db)
+async def delete_task(
+    task_id: int, db: Session = Depends(get_db)
 ):
     """
     Delete an Task from the database
