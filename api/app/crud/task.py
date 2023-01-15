@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from api.app.crud.utils import get_all
+from app.crud.utils import get_all
 from app import models
 from app.schemas.task import Task, TaskCreate, TaskOrderBy
 from app.schemas.user import User
