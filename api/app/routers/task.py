@@ -54,5 +54,5 @@ async def delete_task(
     """
     Delete an Task from the database
     """
-    crud_task.delete_Task(db, task_id)
+    crud_task.delete_task(db, task_id)
     return True
