@@ -25,9 +25,9 @@ app = FastAPI()
 
 def hw_info_api_schema():
     openapi_schema = get_openapi(
-        title="Hardware Info API",
+        title="Orga'Nice API",
         version="0.1",
-        description="Find hardware components information and compatibility",
+        description="Manage your events !! ",
         routes=app.routes,
     )
     app.openapi_schema = openapi_schema

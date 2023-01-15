@@ -29,3 +29,30 @@ async def get_events(
     if res is None:
         raise HTTPException(status_code=404, detail="No event found")
     return res
+
+@router.put("/{", response_model=Event, tags=["Events"])
+async def new_event(
+    event: EventCreate,
+    db: Session = Depends(get_db),
+):
+    """
+    Create a new event
+    """
+    try:
+        res = crud_event.create_event(db, event)
+        if res is None:
+            raise HTTPException(status_code=404, detail="Error while creating an event ")
+        return res
+    except Exception as e:
+        raise error_to_status_code(e)
+
+
+@router.delete("/{event_id}", response_model=bool, tags=["Events"])
+async def delete_event(
+    event_id: int, db: Session = Depends(get_db)
+):
+    """
+    Delete an event from the database
+    """
+    crud_event.delete_event(db, event_id)
+    return True
