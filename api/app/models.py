@@ -18,14 +18,6 @@ UserRoomCompat = Table(
 )
 
 
-"""RoomEventCompat = Table(
-    "room_event_compat",
-    Base.metadata,
-    Column("room_id", ForeignKey("rooms.id")),
-    Column("event_id", ForeignKey("events.id")),
-    UniqueConstraint("room_id", "event_id"),
-)"""
-
 UserEventParticipation = Table(
     "user_event_participation",
     Base.metadata,
@@ -34,6 +26,14 @@ UserEventParticipation = Table(
     UniqueConstraint("user_id", "event_id"),
 )
 
+
+UserTaskAssignation = Table(
+    "user_task_assignation",
+    Base.metadata,
+    Column("user_id", ForeignKey("users.id")),
+    Column("task_id", ForeignKey("tasks.id")),
+    UniqueConstraint("user_id", "task_id"),
+)
 
 
 
@@ -54,6 +54,13 @@ class User(Base):
         "Event",
         secondary= UserEventParticipation,
         back_populates="participants", 
+        uselist= True,
+    )
+    
+    all_tasks = relationship(
+        "Task",
+        secondary= UserTaskAssignation,
+        back_populates="owners", 
         uselist= True,
     )
     
@@ -104,11 +111,28 @@ class Event(Base):
 
     participants = relationship(
         "User",
-        secondary= UserEventParticipation,
+        secondary= UserTaskAssignation,
         back_populates="all_events", 
         uselist= True,
     )
 
+
+
+
+class Task(Base):
+    __tablename__ = "tasks"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    completed = Column(Boolean, index=True)
+    description = Column(String, index=True)
+    
+    
+    owners = relationship(
+        "User",
+        secondary= UserRoomCompat,
+        back_populates="all_tasks", 
+        uselist= True,
+    )
 
 
 

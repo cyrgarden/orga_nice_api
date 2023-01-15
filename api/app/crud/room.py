@@ -24,7 +24,7 @@ def get_room_by_id(db: Session, room_id: int):
     return db.query(models.Room).filter(models.Room.id == room_id).first()
 
 
-def delete_user(db: Session, room_id: int):
+def delete_room(db: Session, room_id: int):
     db_room = db.query(models.Room).filter(models.Room.id == room_id).first()
     if db_room is None:
         return None

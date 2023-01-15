@@ -7,16 +7,20 @@ from app.schemas.utils import OrderBy, Search
 class TaskBase(BaseModel):
     name: str
     completed: bool
-    description: int
+    description: str
 
 
-class TaskCreate(ProcessorBase):
-   pass
+class TaskCreate(TaskBase):
+   owners : list[int] = []
 
 
-class Task(ProcessorBase):
+class Task(TaskBase):
     id: int
+    
 
     class Config:
         orm_mode = True
+
+class TaskOrderBy(OrderBy):
+    id = "id"
 

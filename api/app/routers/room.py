@@ -53,3 +53,14 @@ def get_room_by_id(room_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Room not found")
     return db_room
 
+
+
+@router.delete("/{room_id}", response_model=bool, tags=["Events"])
+async def delete_event(
+    room_id: int, db: Session = Depends(get_db)
+):
+    """
+    Delete a room from the database
+    """
+    crud_room.delete_event(db, room_id)
+    return True

@@ -10,13 +10,15 @@ class ErrandBase(BaseModel):
     description: int
 
 
-class ErrandCreate(ProcessorBase):
+class ErrandCreate(ErrandBase):
    pass
 
 
-class Errand(ProcessorBase):
+class Errand(ErrandBase):
     id: int
 
     class Config:
         orm_mode = True
 
+class ErrandOrderBy(OrderBy):
+    id = "id"

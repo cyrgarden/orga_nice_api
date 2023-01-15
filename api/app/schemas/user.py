@@ -14,6 +14,7 @@ class UserCreate(UserBase):
     password: str
     all_rooms : list[int] = []
     all_events : list[int] = []
+    all_tasks : list[int] = []
 
 
 class User(UserBase):

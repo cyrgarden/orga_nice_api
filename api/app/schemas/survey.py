@@ -1,3 +1,4 @@
+from typing import Set, Union, List
 from pydantic import BaseModel
 from app.schemas.utils import OrderBy, Search
 
@@ -9,11 +10,11 @@ class SurveyBase(BaseModel):
     answers: List[int]
 
 
-class SurveyCreate(ProcessorBase):
+class SurveyCreate(SurveyBase):
    pass
 
 
-class Survey(ProcessorBase):
+class Survey(SurveyBase):
     id: int
 
     class Config:
