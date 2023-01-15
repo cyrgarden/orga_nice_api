@@ -47,7 +47,7 @@ async def new_task(
         raise error_to_status_code(e)
 
 
-@router.delete("/{Task_id}", response_model=bool, tags=["Tasks"])
+@router.delete("/{task_id}", response_model=bool, tags=["Tasks"])
 async def delete_task(
     task_id: int, db: Session = Depends(get_db)
 ):
