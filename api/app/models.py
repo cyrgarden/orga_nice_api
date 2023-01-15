@@ -111,7 +111,7 @@ class Event(Base):
 
     participants = relationship(
         "User",
-        secondary= UserTaskAssignation,
+        secondary= UserEventParticipation,
         back_populates="all_events", 
         uselist= True,
     )
@@ -129,7 +129,7 @@ class Task(Base):
     
     owners = relationship(
         "User",
-        secondary= UserRoomCompat,
+        secondary= UserTaskAssignation,
         back_populates="all_tasks", 
         uselist= True,
     )
