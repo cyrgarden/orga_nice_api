@@ -14,6 +14,7 @@ class EventBase(BaseModel):
 
 class EventCreate(EventBase):
    participants : list[int] = []
+   room_id : int
 
 
 class Event(EventBase):
