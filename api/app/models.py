@@ -93,7 +93,7 @@ class Room(Base):
 class Event(Base):
     __tablename__ = "events"
     id = Column(Integer, primary_key=True, index=True)
-    label = Column(String, index=True)
+    name = Column(String, index=True)
     date = Column(String, index=True)
     place = Column(String, index=True)
     category = Column(String, index=True)
