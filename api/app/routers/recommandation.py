@@ -14,7 +14,7 @@ from app.router_utils import get_db, get_current_user, logger, error_to_status_c
 
 router: APIRouter = APIRouter(
     prefix="/recommandation",
-    tags=["Recommantations"],
+    tags=["Recommandations"],
 )
 
 @router.get("/", response_model=list[Recommandation], tags=["Recommandations"])

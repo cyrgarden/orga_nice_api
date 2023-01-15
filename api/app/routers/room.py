@@ -40,13 +40,13 @@ async def get_room_users(room_id:int, db: Session = Depends(get_db)):
 
 
 
-@router.get("/room/", response_model=List[Room])
+@router.get("/", response_model=List[Room])
 def get_all_rooms(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     rooms = crud_room.get_all_rooms(db)
     return rooms
 
 
-@router.get("/rooms/{room_id}", response_model=Room)
+@router.get("/{room_id}", response_model=Room)
 def get_room_by_id(room_id: int, db: Session = Depends(get_db)):
     db_room = crud_room.get_room_by_id(db, room_id=room_id)
     if db_room is None:
