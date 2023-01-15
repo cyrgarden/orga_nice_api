@@ -14,7 +14,7 @@ router: APIRouter = APIRouter(
     tags=["Errands"],
 )
 
-@router.get("/", response_model=list[errand], tags=["Errands"])
+@router.get("/", response_model=list[Errand], tags=["Errands"])
 async def get_errands(
     db: Session = Depends(get_db),
     offset: int = 0,

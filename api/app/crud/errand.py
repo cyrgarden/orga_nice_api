@@ -6,7 +6,7 @@ from app.schemas.user import User
 import app.crud.event as crud_event
 
 
-def create_errand(db: Session, errand: errandCreate):
+def create_errand(db: Session, errand: ErrandCreate):
     db_errand = models.Errand(**errand.dict())
     db.add(db_errand)
     db.commit()
