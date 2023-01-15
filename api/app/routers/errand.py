@@ -47,7 +47,7 @@ async def new_errand(
         raise error_to_status_code(e)
 
 
-@router.delete("/{errand_id}", response_model=bool, tags=["errands"])
+@router.delete("/{errand_id}", response_model=bool, tags=["Errands"])
 async def delete_errand(
     errand_id: int, db: Session = Depends(get_db)
 ):

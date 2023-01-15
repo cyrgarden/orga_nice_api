@@ -30,7 +30,7 @@ async def get_Tasks(
         raise HTTPException(status_code=404, detail="No Task found")
     return res
 
-@router.put("/{", response_model=Task, tags=["Tasks"])
+@router.put("/", response_model=Task, tags=["Tasks"])
 async def new_Task(
     task: TaskCreate,
     db: Session = Depends(get_db),

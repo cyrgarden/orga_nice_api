@@ -30,7 +30,7 @@ async def get_events(
         raise HTTPException(status_code=404, detail="No event found")
     return res
 
-@router.put("/{", response_model=Event, tags=["Events"])
+@router.put("/", response_model=Event, tags=["Events"])
 async def new_event(
     event: EventCreate,
     db: Session = Depends(get_db),

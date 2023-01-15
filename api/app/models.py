@@ -133,9 +133,7 @@ class Task(Base):
         back_populates="all_tasks", 
         uselist= True,
     )
-
-
-
+    
 class Logs(Base):
     __tablename__ = "logs"
 

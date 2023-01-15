@@ -35,7 +35,7 @@ async def get_recommandations(
 
 
 
-@router.put("/{", response_model=Recommandation, tags=["Recommandations"])
+@router.put("/", response_model=Recommandation, tags=["Recommandations"])
 async def new_recommandation(
     reco: RecommandationCreate,
     db: Session = Depends(get_db),
