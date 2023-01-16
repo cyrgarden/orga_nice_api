@@ -2,6 +2,7 @@ from typing import List, Union
 from pydantic import BaseModel
 from app.schemas.room import Room
 from app.schemas.event import Event
+from app.schemas.task import Task
 
 class UserBase(BaseModel):
     username: str
