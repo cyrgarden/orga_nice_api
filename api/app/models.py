@@ -130,7 +130,7 @@ class Task(Base):
     description = Column(String, index=True)
     
     event_id = Column(Integer, ForeignKey("events.id"))
-    event = relationship("Event", back_populates="tasks")
+    event = relationship("Event", back_populates="associated_tasks")
     
     
     owners = relationship(
