@@ -109,7 +109,7 @@ class Event(Base):
     room_id = Column(Integer, ForeignKey("rooms.id"))
     room = relationship("Room", back_populates="events")
     
-    associated_tasks = relationship("Tasks", back_populates="event")
+    associated_tasks = relationship("Task", back_populates="event")
 
 
     participants = relationship(
