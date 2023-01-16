@@ -9,6 +9,7 @@ def create_room(db: Session, room: RoomCreate, user_id: int):
     user = crud_user.get_user_by_id(db, user_id)
     db_room = models.Room(**room.dict())
     db_room.users.append(user)
+    print(f"ID: {db_room.id}")
     db.add(db_room)
     db.commit()
     db.refresh(db_room)
