@@ -12,6 +12,7 @@ def create_room(db: Session, room: RoomCreate, user_id: int):
     db.add(db_room)
     db.commit()
     db.refresh(db_room)
+    print(f"ID: {db_room.id}")
     return db_room
 
 
