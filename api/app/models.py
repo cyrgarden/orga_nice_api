@@ -108,6 +108,9 @@ class Event(Base):
 
     room_id = Column(Integer, ForeignKey("rooms.id"))
     room = relationship("Room", back_populates="events")
+    
+    associated_tasks = relationship("Tasks", back_populates="event")
+
 
     participants = relationship(
         "User",
@@ -125,6 +128,9 @@ class Task(Base):
     name = Column(String, index=True)
     completed = Column(Boolean, index=True)
     description = Column(String, index=True)
+    
+    event_id = Column(Integer, ForeignKey("events.id"))
+    event = relationship("Event", back_populates="tasks")
     
     
     owners = relationship(

@@ -11,11 +11,13 @@ class TaskBase(BaseModel):
 
 
 class TaskCreate(TaskBase):
-   owners : list[int] = []
+   owners: list[int] = []
+   event_id: int
 
 
 class Task(TaskBase):
     id: int
+    event_id: int
     
 
     class Config:

@@ -20,7 +20,6 @@ class RoomCreate(RoomBase):
 class Room(RoomBase):
     id: int
     events: Union[List[Event], None] = None
-    #events : List[Event] = []
     
 
     class Config:

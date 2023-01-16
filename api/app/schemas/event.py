@@ -1,5 +1,7 @@
+from typing import Set, Union, List
 from pydantic import BaseModel
 from app.schemas.utils import OrderBy, Search
+from app.schemas.task import Task, TaskCreate
 
 # Schema
 
@@ -20,6 +22,7 @@ class EventCreate(EventBase):
 class Event(EventBase):
     id: int
     room_id: int
+    associated_tasks: Union[List[Task], None] = None
 
     class Config:
         orm_mode = True
