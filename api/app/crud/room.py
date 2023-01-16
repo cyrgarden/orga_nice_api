@@ -13,11 +13,6 @@ def create_room(db: Session, room: RoomCreate, user_id: int):
     db.commit()
     db.refresh(db_room)
     
-    user.all_rooms.append(db_room)
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-    
     return db_room
 
 
