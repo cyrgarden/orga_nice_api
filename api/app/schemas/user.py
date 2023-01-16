@@ -15,10 +15,17 @@ class UserCreate(UserBase):
     all_rooms : list[int] = []
     all_events : list[int] = []
     all_tasks : list[int] = []
-
+    
 
 class User(UserBase):
     id: int
 
     class Config:
         orm_mode = True
+        
+        
+class UserAllInfos(UserBase):
+    all_rooms : list[int] = []
+    all_events : list[int] = []
+    all_tasks : list[int] = []
+    
