@@ -19,13 +19,15 @@ class UserCreate(UserBase):
 
 class User(UserBase):
     id: int
+    all_rooms: Union[List[Room], None] = None
 
     class Config:
         orm_mode = True
         
         
 class UserAllInfos(UserBase):
-    all_rooms : list[int] = []
-    all_events : list[int] = []
+    #all_rooms : list[int] = []
+    all_rooms: Union[List[Room], None] = None
+    all_events : list[Event] = []
     all_tasks : list[int] = []
     
