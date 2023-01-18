@@ -49,6 +49,7 @@ def startup_event():
             db,
            "fastapi",
             auth.get_password_hash("fastapi"),
+            "mail@.com",
             True,
         )
         db.close()
