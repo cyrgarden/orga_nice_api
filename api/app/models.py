@@ -42,6 +42,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(255), unique=True)
+    mail = Column(String(255), unique=True)
     password = Column(String(255))
     admin = Column(Boolean, default = False)
     all_rooms = relationship(

@@ -7,6 +7,7 @@ from app.schemas.task import Task
 class UserBase(BaseModel):
     username: str
     password: Union[str, None] = None
+    mail: str
     admin: bool = False
 
 
