@@ -29,5 +29,9 @@ class User(UserBase):
     class Config:
         orm_mode = True
         
+
+class UserSubscribe(UserBase):
+    pass
+    
         
 

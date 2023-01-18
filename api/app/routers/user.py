@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 import app.auth as auth
 from app.router_utils import get_db, get_current_user, logger, error_to_status_code
-from app.schemas.user import User, UserCreate
+from app.schemas.user import User, UserCreate, UserSubscribe
 from app.schemas.room import Room, RoomCreate
 import app.crud.user as crud_user
 
@@ -49,7 +49,7 @@ async def delete_user(
 
 @router.put("/", response_model=User, tags=["Auth"])
 async def add_user(
-    new_user: UserCreate,
+    new_user: UserSubscribe,
     db: Session = Depends(get_db),
 ):
 
