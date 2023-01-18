@@ -60,6 +60,7 @@ async def add_user(
             new_user.username,
             auth.get_password_hash(new_user.password),
             new_user.admin,
+            email_adress = new_user.mail
             )
         print("END ROUTER")
         #logger(db, user, f"Added user {db_user.id}")

@@ -8,9 +8,9 @@ def get_user(db: Session, username: str):
     return db.query(models.User).filter(models.User.username == username).first()
 
 
-def new_user(db: Session, user: str, password: str, is_admin: bool):
+def new_user(db: Session, user: str, password: str, mail_adress: str, is_admin: bool):
     print("CRUD : ")
-    db_user = models.User(username=user, password=password, admin=is_admin)
+    db_user = models.User(username=user, password=password, admin=is_admin, mail = mail_adress)
     db.add(db_user)
     db.commit()
     return db_user
