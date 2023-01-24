@@ -7,6 +7,7 @@ from app.schemas.utils import OrderBy, Search
 class RecommandationBase(BaseModel):
     label: str
     recommandation_type: str
+    subtype : str
     place: str
     price : float
     availabilites :str

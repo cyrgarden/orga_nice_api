@@ -74,6 +74,7 @@ class Recommandation(Base):
     price = Column(Float)
     label = Column(String, index=True)
     recommandation_type = Column(String, index=True)
+    subtype = Column(String, index= True)
     place = Column(String, index=True)
     availabilites = Column(String, index=True)
     url = Column(String, index=True)
