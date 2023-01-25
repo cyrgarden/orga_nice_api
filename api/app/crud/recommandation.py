@@ -24,7 +24,7 @@ def get_recommandations_filtered(db:Session, type, subtype, price, origin_city, 
     final_reco_list = []
         
     for reco in all_reco:
-        arrival = get_coordinates(reco.place)
+        arrival = get_coordinates(reco.place, 'FR')
         if (compute_distance(origin[0], origin[1], arrival[0], arrival[1]) <= maximum_distance) :
             final_reco_list.append(reco)
             
