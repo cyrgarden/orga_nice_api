@@ -17,7 +17,7 @@ def get_all_recommandation(
 
 
 def get_recommandations_filtered(db:Session, type, subtype, price, origin_city, maximum_distance):
-    all_reco = db.query(models.Recommandation).filter(models.Recommandation.type == type).filter(models.Recommandation.subtype == subtype).filter(models.Recommandation.price <= price).all()
+    all_reco = db.query(models.Recommandation).filter(models.Recommandation.recommandation_type == type).filter(models.Recommandation.subtype == subtype).filter(models.Recommandation.price <= price).all()
     
     origin = get_coordinates(origin_city, 'FR')
     
