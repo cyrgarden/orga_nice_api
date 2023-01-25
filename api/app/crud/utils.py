@@ -89,7 +89,7 @@ def compute_distance(lat1, lon1, lat2, lon2) -> float :
     print("Result:", distance)
     return distance
 
-def get_coordinates(city_name, country_code) -> tuple(float, float):
+def get_coordinates(city_name, country_code):
     api_key = '25d7c5abdb7b1ffbabe8cb99ccc3afc7'
     #res = requests.get(url=f'http://api.openweathermap.org/geo/1.0/direct?q={city_name}&limit={limit}', headers=headers, auth=auth)
     res = requests.get(url=f'http://api.openweathermap.org/geo/1.0/direct?q={city_name},{country_code}&limit=1&appid={api_key}')
