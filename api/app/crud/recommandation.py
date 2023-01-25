@@ -4,8 +4,6 @@ from app.crud.utils import get_all, get_coordinates, compute_distance
 from app.schemas.recommandation import Recommandation, RecommandationCreate, RecommandationOrderBy
 
 
-
-
 def get_all_recommandation(
     db: Session,
     limit: int,
