@@ -34,6 +34,24 @@ async def get_recommandations(
     return res
 
 
+@router.get("/filtered/", response_model=list[Recommandation], tags=["Recommandations"])
+async def get_filtered_recommandations(
+    db: Session = Depends(get_db),
+    type: str = '',
+    subtype: str = '',
+    price: float = 100000.0,
+    origin_city: str = '',
+    maximum_distance: float = 100.0,
+):
+    """
+    Find filtered recommandations
+    """
+    res = crud_reco.get_recommandations_filtered(db, type, subtype, price, origin_city, maximum_distance)
+    if res is None:
+        raise HTTPException(status_code=404, detail="No recommandation found")
+    return res
+
+
 
 @router.put("/", response_model=Recommandation, tags=["Recommandations"])
 async def new_recommandation(

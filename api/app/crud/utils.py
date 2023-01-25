@@ -2,6 +2,9 @@ from sqlalchemy import desc, func
 from sqlalchemy.orm import Session, Query  # type: ignore
 from app.schemas.utils import OrderBy, Search
 from typing import Union
+import requests
+import random
+from math import sin, cos, sqrt, atan2, radians
 
 
 
@@ -69,3 +72,25 @@ def count_all(db:Session, component_model):
     print(f"TOTAL COUNT: {rows}")
     return rows
 
+
+def compute_distance(lat1, lon1, lat2, lon2) -> float :
+
+
+    lat1 = radians(lat1)
+    lon1 = radians(lon1)
+    lat2 = radians(lat2)
+    lon2 = radians(lon2)
+    R = 6373.0
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    distance = R * c
+    print("Result:", distance)
+    return distance
+
+def get_coordinates(city_name, country_code) -> tuple(float, float):
+    api_key = '25d7c5abdb7b1ffbabe8cb99ccc3afc7'
+    #res = requests.get(url=f'http://api.openweathermap.org/geo/1.0/direct?q={city_name}&limit={limit}', headers=headers, auth=auth)
+    res = requests.get(url=f'http://api.openweathermap.org/geo/1.0/direct?q={city_name},{country_code}&limit=1&appid={api_key}')
+    return (res.json()[0]['lat'], res.json()[0]['lon'])
