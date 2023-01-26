@@ -78,6 +78,8 @@ class Recommandation(Base):
     place = Column(String, index=True)
     availabilites = Column(String, index=True)
     url = Column(String, index=True)
+    lat = Column(Float)
+    lon = Column(Float)
     
 
     

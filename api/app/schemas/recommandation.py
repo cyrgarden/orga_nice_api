@@ -12,6 +12,8 @@ class RecommandationBase(BaseModel):
     price : float
     availabilites :str
     url :str
+    lat : float
+    lon : float
 
 
 class RecommandationCreate(RecommandationBase):

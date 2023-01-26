@@ -22,8 +22,7 @@ def get_recommandations_filtered(db:Session, type,price, origin_city, maximum_di
     final_reco_list = []
         
     for reco in all_reco:
-        arrival = get_coordinates(reco.place, 'FR')
-        if (compute_distance(origin[0], origin[1], arrival[0], arrival[1]) <= maximum_distance) :
+        if (compute_distance(origin[0], origin[1], reco.lat, reco.lon) <= maximum_distance) :
             final_reco_list.append(reco)
             
     return final_reco_list
@@ -35,6 +34,11 @@ def get_recommandations_by_type(db:Session, type:str):
     
 def create_recommandation(db: Session, reco: RecommandationCreate):
     db_reco = models.Recommandation(**reco.dict())
+    
+    coordinates = get_coordinates(db_reco.place)
+    db_reco.lat = coordinates[0]
+    db_reco.lon = coordinates[1]
+    
     db.add(db_reco)
     db.commit()
     db.refresh(db_reco)
