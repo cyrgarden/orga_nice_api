@@ -35,7 +35,7 @@ def get_recommandations_by_type(db:Session, type:str):
 def create_recommandation(db: Session, reco: RecommandationCreate):
     db_reco = models.Recommandation(**reco.dict())
     
-    coordinates = get_coordinates(db_reco.place)
+    coordinates = get_coordinates(db_reco.place, 'FR')
     db_reco.lat = coordinates[0]
     db_reco.lon = coordinates[1]
     
