@@ -31,9 +31,11 @@ async def new_room(
     except Exception as e:
         raise error_to_status_code(e)
 
-@router.get("/{room_id}/users", response_model=list[User], tags=["Rooms"])
+@router.get("/{room_id}/users",tags=["Rooms"])
 async def get_room_users(room_id:int, db: Session = Depends(get_db)):
     users = crud_room.get_room_users(db, room_id)
+    for user in users:
+        print(user.username)
    
     if users is None:
         raise HTTPException(status_code=404, detail="Users not found")
@@ -50,6 +52,7 @@ def get_all_rooms(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
 @router.get("/{room_id}", response_model=Room)
 def get_room_by_id(room_id: int, db: Session = Depends(get_db)):
     db_room = crud_room.get_room_by_id(db, room_id=room_id)
+
     if db_room is None:
         raise HTTPException(status_code=404, detail="Room not found")
     return db_room
