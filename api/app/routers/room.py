@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException, status
 import app.crud.room as crud_room
 import app.models as models
-from app.schemas.room import Room, RoomCreate
+from app.schemas.room import Room, RoomCreate, RoomAllInfos
 from app.schemas.user import User, UserCreate
 from app.router_utils import get_db, get_current_user, logger, error_to_status_code
 
@@ -40,7 +40,7 @@ async def get_room_users(room_id:int, db: Session = Depends(get_db)):
 
 
 
-@router.get("/", response_model=List[Room])
+@router.get("/", response_model=List[RoomAllInfos])
 def get_all_rooms(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     rooms = crud_room.get_all_rooms(db)
     return rooms
