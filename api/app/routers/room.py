@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 import app.crud.room as crud_room
 import app.models as models
 from app.schemas.room import Room, RoomCreate
-from app.schemas.user import User, UserCreate, UserInfos
+from app.schemas.user import User, UserCreate
 from app.router_utils import get_db, get_current_user, logger, error_to_status_code
 
 router: APIRouter = APIRouter(
@@ -31,18 +31,13 @@ async def new_room(
     except Exception as e:
         raise error_to_status_code(e)
 
-@router.get("/{room_id}/users", response_model=list[UserInfos], tags=["Rooms"])
+@router.get("/{room_id}/users", response_model=list[User], tags=["Rooms"])
 async def get_room_users(room_id:int, db: Session = Depends(get_db)):
     users = crud_room.get_room_users(db, room_id)
-    #users_infos =[UserInfos(user.username, user.mail, user.all_events,user.all_tasks) for user in users]
-    users_infos = []
-    for user in users :
-        print(user)
-        users_infos.append(UserInfos(user.username, user.mail, user.all_events,user.all_tasks))
-    print(users_infos)
+   
     if users is None:
         raise HTTPException(status_code=404, detail="Users not found")
-    return users_infos
+    return users
 
 
 
