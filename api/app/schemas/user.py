@@ -25,6 +25,13 @@ class User(UserBase):
     all_events: Union[List[Event], None] = None
     all_tasks: Union[List[Task], None] = None
 
+class UserInfos(BaseModel):
+    username: str
+    mail: str
+    all_events: Union[List[Event], None] = None
+    all_tasks: Union[List[Task], None] = None
+
+
 
     class Config:
         orm_mode = True
