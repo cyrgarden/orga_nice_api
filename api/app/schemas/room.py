@@ -16,10 +16,6 @@ class RoomCreate(RoomBase):
    users : list[int] = []
 
 
-class RoomAllInfos(RoomBase):
-    users : list[int] = []
-
-
 class Room(RoomBase):
     id: int
     events: Union[List[Event], None] = None
