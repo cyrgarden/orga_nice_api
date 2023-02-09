@@ -34,7 +34,11 @@ async def new_room(
 @router.get("/{room_id}/users", response_model=list[UserInfos], tags=["Rooms"])
 async def get_room_users(room_id:int, db: Session = Depends(get_db)):
     users = crud_room.get_room_users(db, room_id)
-    users_infos =[UserInfos(user.username, user.mail, user.all_events,user.all_tasks) for user in users]
+    #users_infos =[UserInfos(user.username, user.mail, user.all_events,user.all_tasks) for user in users]
+    users_infos = []
+    for user in users :
+        print(user)
+        users_infos.append(UserInfos(user.username, user.mail, user.all_events,user.all_tasks))
     print(users_infos)
     if users is None:
         raise HTTPException(status_code=404, detail="Users not found")
