@@ -6,6 +6,8 @@ import app.models as models
 from app.schemas.room import Room, RoomCreate
 from app.schemas.user import User, UserCreate
 from app.router_utils import get_db, get_current_user, logger, error_to_status_code
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 
 router: APIRouter = APIRouter(
     prefix="/room",
@@ -34,12 +36,14 @@ async def new_room(
 @router.get("/{room_id}/users",tags=["Rooms"])
 async def get_room_users(room_id:int, db: Session = Depends(get_db)):
     users = crud_room.get_room_users(db, room_id)
+    users_infos=[]
     for user in users:
-        print(user.username)
+        users_infos.append{'username':user.username, 'mail': user.mail}
    
     if users is None:
         raise HTTPException(status_code=404, detail="Users not found")
-    return users
+    to_return = jsonable_encoder(users_infos)
+    return JSONResponse(content=to_return)
 
 
 
