@@ -33,6 +33,26 @@ async def new_room(
     except Exception as e:
         raise error_to_status_code(e)
 
+
+@router.post("/{user_id}/join_room/{invite_link}", response_model=Room, tags=["Rooms"])
+async def add_user_to_room(
+    user_id: int, 
+    invite_link: str,
+    db: Session = Depends(get_db),
+):
+    """
+    Create a new room
+    """
+    try:
+        res = crud_room.add_user(db, user_id, invite_link)
+        if res is None:
+            raise HTTPException(status_code=404, detail="Error while creating a room ")
+        return res
+    except Exception as e:
+        raise error_to_status_code(e)
+
+
+
 @router.get("/{room_id}/users",tags=["Rooms"])
 async def get_room_users(room_id:int, db: Session = Depends(get_db)):
     users = crud_room.get_room_users(db, room_id)
