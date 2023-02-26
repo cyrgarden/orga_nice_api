@@ -23,10 +23,14 @@ def create_room(db: Session, room: RoomCreate, user_id: int):
 def add_user(db: Session, user_id: int, invite_link : str) :
     room = get_room_by_invite_link(db, invite_link)
     user = crud_user.get_user_by_id(db, user_id)
+    print(room)
+    print(user)
+    print(room.users)
     room.users.append(user)
     #db.add(room)
     db.commit()
     db.refresh(room)
+    return room
     
 
 
