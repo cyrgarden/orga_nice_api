@@ -7,8 +7,8 @@ import random
 from math import sin, cos, sqrt, atan2, radians
 import re
 import smtplib
+from email.message import EmailMessage
 import os
-
 
 
 def criteria_to_query(query: Query, model: object, criteria: object):
@@ -88,28 +88,28 @@ def is_mail_valid(email: str):
 
 def send_mail(db:Session, receiver_email:str, subject:str, body :str):
 
-    #Load the .env variables
+    # Load the .env variables
 
-    smtp_server = os.getenv('SMTP_SERVER')
-    port = os.getenv('SMTP_PORT')
+    sender_email = 'organice.staff@gmail.com'
+    password = 'rgncvmagqdtfeegz'
 
-    username = os.getenv('SENDER_USERNAME')
-    password = os.getenv('SENDER_PASSWORD')
-    sender_email = os.getenv('SENDER_MAIL')
-    
-    message = f"""From: {sender_email} To: {receiver_email} Subject: {subject}\n\n{body} """
+    message = EmailMessage()
+    message['Subject'] = subject
+    message['From'] = sender_email
+    message['To'] = receiver_email
+    message.set_content(body) 
+
 
     # Connexion au serveur SMTP
-    server = smtplib.SMTP(smtp_server, port)
+    server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login(username, password)
+    server.login(sender_email, password)
 
     # Envoi de l'email
-    server.sendmail(sender_email, receiver_email, message)
+    server.send_message(message)
 
     # Fermeture de la connexion
     server.quit()
-
 
 
 def compute_distance(lat1, lon1, lat2, lon2) -> float :
