@@ -5,6 +5,9 @@ from typing import Union
 import requests
 import random
 from math import sin, cos, sqrt, atan2, radians
+import re
+import smtplib
+import os
 
 
 
@@ -72,9 +75,44 @@ def count_all(db:Session, component_model):
     print(f"TOTAL COUNT: {rows}")
     return rows
 
+#Function to email format validity
+def is_mail_valid(email: str):
+    regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    if(re.search(regex,email)):
+        print("Valid Email")
+        return True
+    else:
+        print("Invalid Email")
+        return False
+
+
+def send_mail(db:Session, receiver_email:str, subject:str, body :str):
+
+    #Load the .env variables
+
+    smtp_server = os.getenv('SMTP_SERVER')
+    port = os.getenv('SMTP_PORT')
+
+    username = os.getenv('SENDER_USERNAME')
+    password = os.getenv('SENDER_PASSWORD')
+    sender_email = os.getenv('SENDER_MAIL')
+    
+    message = f"""From: {sender_email} To: {receiver_email} Subject: {subject}\n\n{body} """
+
+    # Connexion au serveur SMTP
+    server = smtplib.SMTP(smtp_server, port)
+    server.starttls()
+    server.login(username, password)
+
+    # Envoi de l'email
+    server.sendmail(sender_email, receiver_email, message)
+
+    # Fermeture de la connexion
+    server.quit()
+
+
 
 def compute_distance(lat1, lon1, lat2, lon2) -> float :
-
 
     lat1 = radians(lat1)
     lon1 = radians(lon1)
@@ -94,3 +132,5 @@ def get_coordinates(city_name, country_code):
     #res = requests.get(url=f'http://api.openweathermap.org/geo/1.0/direct?q={city_name}&limit={limit}', headers=headers, auth=auth)
     res = requests.get(url=f'http://api.openweathermap.org/geo/1.0/direct?q={city_name},{country_code}&limit=1&appid={api_key}')
     return (res.json()[0]['lat'], res.json()[0]['lon'])
+
+
