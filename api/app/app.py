@@ -13,7 +13,7 @@ from app.routers.recommandation import router as recommandation_router
 from app.routers.event import router as event_router
 from app.routers.task import router as task_router
 from app.routers.errand import router as errand_router
-from app.crud.user import get_user_by_username
+from app.crud.user import get_user
 from app.router_utils import *
 
 POSTGRES_USER = os.getenv('POSTGRES_USER')
