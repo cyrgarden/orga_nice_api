@@ -80,6 +80,16 @@ class Recommandation(Base):
     url = Column(String, index=True)
     lat = Column(Float)
     lon = Column(Float)
+
+
+
+
+class PendingPassword(Base):
+    __tablename__ = "pending_passwords"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Float)
+    new_password = Column(String)
     
 
     

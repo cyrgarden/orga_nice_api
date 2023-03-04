@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app import models
 from app.schemas.room import RoomCreate
+from app.crud.utils import send_mail
 
 
 
@@ -23,6 +24,18 @@ def get_all_users(db: Session):
 def get_user_by_id(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
 
+def get_user_by_mail(db: Session, user_mail: str):
+    return db.query(models.User).filter(models.User.mail == user_mail).first()
+
+def reset_password_one(db: Session, user_mail:str):
+    user = get_user_by_mail(db, user_mail)
+    if user is None :
+        return None
+    send_mail(db, user_mail, "NEW PASSWORD REQUEST", "new_password")
+    
+def reset_password_two(db: Session, user_id :int, new_password : str):
+    user = get_user_by_id(db, user_id)
+    
 
 def delete_user(db: Session, user_id: int):
     db_user = db.query(models.User).filter(models.User.id == user_id).first()

@@ -6,6 +6,7 @@ from jose import jwt  # type: ignore
 from passlib.context import CryptContext  # type: ignore
 from pydantic import BaseModel
 import app.crud.user as crud_user
+import app.crud.pending_password as crud_new_password
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRET_KEY = os.getenv("AUTH_SECRET_KEY")
@@ -45,6 +46,25 @@ def authenticate_user(db, username: str, password: str):
     if not verify_password(password, user.password):
         return False
     return user
+
+def authenticate_user_bis(db, username: str, password: str):
+    user = crud_user.get_user(db, username)
+    if not user:
+        return False
+    
+    new_password = crud_new_password.get_pending_by_user_id(db, user.id)
+    if not new_password :
+        return False
+    
+    if not verify_password(password, user.password):
+        return False
+    
+    user.password = new_password
+    db.commit()
+    db.refresh(user)
+    crud_new_password.delete_pending_password(new_password.id)
+    return user
+
 
 
 def create_access_token(data: dict, expires_delta: timedelta):

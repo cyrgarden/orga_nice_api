@@ -13,7 +13,7 @@ from app.routers.recommandation import router as recommandation_router
 from app.routers.event import router as event_router
 from app.routers.task import router as task_router
 from app.routers.errand import router as errand_router
-
+from app.crud.user import get_user_by_username
 from app.router_utils import *
 
 POSTGRES_USER = os.getenv('POSTGRES_USER')
@@ -66,11 +66,18 @@ async def login_for_access_token(
 ):
     user = auth.authenticate_user(db, form_data.username, form_data.password)
     if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        user_bis = auth.authenticate_user_bis(db, form_data.username, form_data.password)
+        if not user_bis:
+            
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect username or password",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        access_token_expires = timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
+        access_token = auth.create_access_token(
+            data={"sub": user.username}, expires_delta=access_token_expires)
+        return {"access_token": access_token, "token_type": "bearer"}
     access_token_expires = timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = auth.create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
