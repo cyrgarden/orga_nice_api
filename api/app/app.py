@@ -12,6 +12,7 @@ from app.routers.room import router as room_router
 from app.routers.recommandation import router as recommandation_router
 from app.routers.event import router as event_router
 from app.routers.task import router as task_router
+from app.routers.pending_password import router as pending_password_router
 from app.routers.errand import router as errand_router
 from app.crud.user import get_user
 from app.router_utils import *
@@ -90,3 +91,4 @@ app.include_router(room_router)
 app.include_router(recommandation_router)
 app.include_router(event_router)
 app.include_router(task_router)
+app.include_router(pending_password_router)
