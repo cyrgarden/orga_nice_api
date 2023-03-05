@@ -29,20 +29,20 @@ services:
       - ./db/.env
     networks:
       - fastapiXdocker
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "pg_isready",
-          "-q",
-          "-d",
-          "${POSTGRES_DB}",
-          "-U",
-          "${POSTGRES_USER}"
-        ]
-      timeout: 45s
-      interval: 10s
-      retries: 10
+    # healthcheck:
+    #   test:
+    #     [
+    #       "CMD",
+    #       "pg_isready",
+    #       "-q",
+    #       "-d",
+    #       "${POSTGRES_DB}",
+    #       "-U",
+    #       "${POSTGRES_USER}"
+    #     ]
+    #   timeout: 45s
+    #   interval: 10s
+    #   retries: 10
   adminer:
     image: adminer
     ports:
