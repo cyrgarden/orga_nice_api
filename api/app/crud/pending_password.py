@@ -9,7 +9,7 @@ import random
 
 
 
-def get_pending_password_by_user_if(db, user_id:int ):
+def get_pending_password_by_user_id(db, user_id:int ):
     return db.query(models.PendingPassword).filter(models.PendingPassword.id == user_id).first()
 
     

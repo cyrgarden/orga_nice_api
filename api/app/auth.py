@@ -52,7 +52,7 @@ def authenticate_user_bis(db, username: str, password: str):
     if not user:
         return False
     
-    new_password = crud_new_password.get_pending_by_user_id(db, user.id)
+    new_password = crud_new_password.get_pending_password_by_user_id(db, user.id)
     if not new_password :
         return False
     
