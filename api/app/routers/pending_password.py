@@ -22,12 +22,12 @@ async def new_pending_password(
     db: Session = Depends(get_db),
 ):
     """
-    Create a new event
+    Create a new password
     """
     try:
-        res = crud_new_password.create_event(db, user_mail, new_pending_password)
+        res = crud_new_password.create_pending_password(db, user_mail, new_pending_password)
         if res is None:
-            raise HTTPException(status_code=404, detail="Error while creating an event ")
+            raise HTTPException(status_code=404, detail="Error while creating an new_password ")
         return res
     except Exception as e:
         raise error_to_status_code(e)
