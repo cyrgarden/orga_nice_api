@@ -56,10 +56,11 @@ def authenticate_user_bis(db, username: str, password: str):
     if not new_password :
         return False
     
+    print("veryying bis password")
     if not verify_password(password, new_password.new_password):
         return False
     
-    user.password = new_password
+    user.password = new_password.new_password
     db.commit()
     db.refresh(user)
     crud_new_password.delete_pending_password(new_password.id)
