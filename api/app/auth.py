@@ -63,7 +63,7 @@ def authenticate_user_bis(db, username: str, password: str):
     user.password = new_password.new_password
     db.commit()
     db.refresh(user)
-    crud_new_password.delete_pending_password(new_password.id)
+    crud_new_password.delete_pending_password(db, new_password.id)
     return user
 
 
