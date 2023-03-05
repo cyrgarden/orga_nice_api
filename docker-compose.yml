@@ -27,6 +27,7 @@ services:
       - POSTGRES_PASSWORD=fastapi
     env_file:
       - ./db/.env
+    command: "-c logging_collector=off"
     networks:
       - fastapiXdocker
     healthcheck:
