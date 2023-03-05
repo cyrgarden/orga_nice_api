@@ -91,7 +91,7 @@ def send_mail(db:Session, receiver_email:str, subject:str, body :str):
     # Load the .env variables
 
     sender_email = 'organice.staff@gmail.com'
-    password = 'rgncvmagqdtfeegz'
+    password = 'gkapybirkslhnouu'
 
     message = EmailMessage()
     message['Subject'] = subject
