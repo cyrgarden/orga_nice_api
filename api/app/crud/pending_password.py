@@ -10,7 +10,7 @@ import random
 
 
 def get_pending_password_by_user_id(db, user_id:int ):
-    return db.query(models.PendingPassword).filter(models.PendingPassword.id == user_id).first()
+    return db.query(models.PendingPassword).filter(models.PendingPassword.user_id == user_id).first()
 
     
 def create_pending_password(db: Session, user_mail:str,  pending_password :PendingPasswordCreate):
