@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from app.schemas.room import Room
 from app.schemas.event import Event
 from app.schemas.task import Task
-from api.app.schemas.indisponibility import Indisponibility
+from app.schemas.indisponibility import Indisponibility
 
 class UserBase(BaseModel):
     username: str
