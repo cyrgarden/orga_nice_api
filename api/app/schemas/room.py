@@ -1,7 +1,7 @@
 from typing import Set, Union, List
 from pydantic import BaseModel
 from app.schemas.event import Event
-from api.app.schemas.indisponibility import Indisponibility
+from app.schemas.indisponibility import Indisponibility
 
 
 # Schema
