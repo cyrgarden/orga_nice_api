@@ -9,6 +9,23 @@ from typing import Optional
 
 
 
+
+"""UserIndispo = Table(
+    "user_indispo",
+    Base.metadata,
+    Column("user_id", ForeignKey("users.id")),
+    Column("indispo_id",ForeignKey("indisponibilities.id")),
+    UniqueConstraint("user_id", "indispo_id"),
+)
+
+RoomIndispo = Table(
+    "room_indispo",
+    Base.metadata,
+    Column("room_id", ForeignKey("rooms.id")),
+    Column("indispo_id",ForeignKey("indisponibilities.id")),
+    UniqueConstraint("room_id", "indispo_id"),
+)"""
+
 UserRoomCompat = Table(
     "user_room_compat",
     Base.metadata,
@@ -65,6 +82,7 @@ class User(Base):
         uselist= True,
     )
     
+    associated_indispos = relationship("Indisponibility", back_populates="user")
 
 
 class Recommandation(Base):
@@ -83,7 +101,19 @@ class Recommandation(Base):
 
 
 
-
+class Indisponibility(Base):
+    __tablename__ ='indisponibilities'
+    
+    
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(String)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship("User", back_populates="associated_indispos")
+    
+    room_id = Column(Integer, ForeignKey("rooms.id"))
+    room = relationship("Room", back_populates="associated_indispos")
+    
+    
 class PendingPassword(Base):
     __tablename__ = "pending_passwords"
 
@@ -107,6 +137,8 @@ class Room(Base):
         back_populates="all_rooms", 
         uselist= True,
     )
+    
+    associated_indispos = relationship("Indisponibility", back_populates="room")
 
 
  

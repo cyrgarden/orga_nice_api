@@ -1,6 +1,8 @@
 from typing import Set, Union, List
 from pydantic import BaseModel
 from app.schemas.event import Event
+from api.app.schemas.indisponibility import Indisponibility
+
 
 # Schema
 
@@ -19,6 +21,7 @@ class RoomCreate(RoomBase):
 class Room(RoomBase):
     id: int
     events: Union[List[Event], None] = None
+    all_indisponibitilies : Union [List[Indisponibility], None] = None
     
 
     class Config:
