@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 import app.auth as auth
-from app.router_utils import get_db, get_current_user, logger, error_to_status_code, is_mail_valid
+from app.router_utils import get_db, get_current_user, logger, error_to_status_code
+from app.crud.utils import is_mail_valid
 from app.schemas.user import User, UserCreate, UserSubscribe
 from app.schemas.room import Room, RoomCreate
 from app.schemas.new_password import NewPasswordBase
