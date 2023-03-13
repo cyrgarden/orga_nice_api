@@ -65,12 +65,12 @@ async def add_user(
             status_code=400, detail="Votre adresse mail est invalide"
         )
     
-    if crud_user.get_user_by_mail(db, new_user.username) is note None :
+    if crud_user.get_user_by_mail(db, new_user.username) is not None :
         raise HTTPException(
             status_code=400, detail="Ce mail est déjà pris."
         )
 
-    if crud_user.get_user(db, new_user.username) is note None :
+    if crud_user.get_user(db, new_user.username) is not None :
         raise HTTPException(
             status_code=400, detail="Ce pseudo existe déjà."
         )
