@@ -35,10 +35,10 @@ def get_recommandations_filtered(db:Session, type,price, origin_city, maximum_di
     return final_reco_list
         
 def get_recommandations_by_type(db:Session, reco_type:str):
-    return db.query(models.Recommandation).filter(models.recommandation_type == reco_type).all()
+    return db.query(models.Recommandation).filter(models.Recommandation.recommandation_type == reco_type).all()
 
 def get_recommandations_by_subtype(db:Session, subtype:str):
-    return db.query(models.Recommandation).filter(models.subtype == subtype).order_by(models.price, func.random())
+    return db.query(models.Recommandation).filter(models.Recommandation.subtype == subtype).order_by(models.price, func.random())
         
     
     
