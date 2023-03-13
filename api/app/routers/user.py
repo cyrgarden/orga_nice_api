@@ -4,6 +4,7 @@ import app.auth as auth
 from app.router_utils import get_db, get_current_user, logger, error_to_status_code
 from app.schemas.user import User, UserCreate, UserSubscribe
 from app.schemas.room import Room, RoomCreate
+from app.schemas.new_password import NewPasswordBase
 import app.crud.user as crud_user
 
 router: APIRouter = APIRouter(
@@ -73,3 +74,4 @@ async def add_user(
 async def read_users_me(user=Depends(get_current_user)):
     user.password = None
     return user
+
