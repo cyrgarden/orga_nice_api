@@ -48,5 +48,7 @@ def delete_user(db: Session, user_id: int):
 
 def get_user_rooms(db:Session, user_id:int): 
     user = get_user_by_id(db, user_id)
+    if user is None : 
+        return None
     print(user.all_rooms)
     return user.all_rooms
