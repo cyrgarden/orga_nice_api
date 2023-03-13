@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 import app.auth as auth
 from app.router_utils import get_db, get_current_user, logger, error_to_status_code
-from app.crud.utils import is_mail_valid
+from app.crud.utils import is_mail_valid, is_password_valid
 from app.schemas.user import User, UserCreate, UserSubscribe
 from app.schemas.room import Room, RoomCreate
 from app.schemas.new_password import NewPasswordBase
@@ -55,11 +55,26 @@ async def add_user(
     db: Session = Depends(get_db),
 ):
 
-    print("BEGIN ROUTER")
+    if not is_password_valid(new_user.password) :
+        raise HTTPException(
+            status_code=400, detail="Le format de votre mot de passe n'est pas valide. Il doit faire au minimum 9 caractères."
+        )
+
     if not is_mail_valid(new_user.mail) :
         raise HTTPException(
-            status_code=400, detail="VOtre adresse mail est invalide"
+            status_code=400, detail="Votre adresse mail est invalide"
         )
+    
+    if crud_user.get_user_by_mail(db, new_user.username) is note None :
+        raise HTTPException(
+            status_code=400, detail="Ce mail est déjà pris."
+        )
+
+    if crud_user.get_user(db, new_user.username) is note None :
+        raise HTTPException(
+            status_code=400, detail="Ce pseudo existe déjà."
+        )
+    
     
     db_user = crud_user.new_user(
             db,

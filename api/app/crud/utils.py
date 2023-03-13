@@ -85,6 +85,13 @@ def is_mail_valid(email: str):
         print("Invalid Email")
         return False
 
+def is_password_valid(password : str ) -> bool :
+    if (len(password)<= 8 ):
+        return False
+    if not re.search("[a-z]", password):
+        return False
+    return True
+
 
 def send_mail(db:Session, receiver_email:str, subject:str, body :str):
 
