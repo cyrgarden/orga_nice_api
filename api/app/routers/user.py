@@ -60,19 +60,15 @@ async def add_user(
         raise HTTPException(
             status_code=400, detail="VOtre adresse mail est invalide"
         )
-    try:
-        db_user = crud_user.new_user(
+    
+    db_user = crud_user.new_user(
             db,
             new_user.username,
             auth.get_password_hash(new_user.password),
             new_user.mail,
             new_user.admin,
-            )
-        print("END ROUTER")
-        #logger(db, user, f"Added user {db_user.id}")
-        return db_user
-    except Exception as e:
-        raise error_to_status_code(e)
+    )
+    return db_user
    
 
 @router.get("/me", response_model=User, tags=["Auth"])
