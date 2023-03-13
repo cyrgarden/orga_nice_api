@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 import app.auth as auth
-from app.router_utils import get_db, get_current_user, logger, error_to_status_code
+from app.router_utils import get_db, get_current_user, logger, error_to_status_code, is_mail_valid
 from app.schemas.user import User, UserCreate, UserSubscribe
 from app.schemas.room import Room, RoomCreate
 from app.schemas.new_password import NewPasswordBase
@@ -55,6 +55,10 @@ async def add_user(
 ):
 
     print("BEGIN ROUTER")
+    if not is_mail_valid(new_user.mail) :
+        raise HTTPException(
+            status_code=400, detail="VOtre adresse mail est invalide"
+        )
     try:
         db_user = crud_user.new_user(
             db,
