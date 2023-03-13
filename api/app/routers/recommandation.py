@@ -50,6 +50,19 @@ async def get_filtered_recommandations(
         raise HTTPException(status_code=404, detail="No recommandation found")
     return res
 
+@router.get("/filtered_subtype/", response_model=list[Recommandation], tags=["Recommandations"])
+async def get_filtered_recommandations_by_subtype(
+    db: Session = Depends(get_db),
+    subtype: str = '',
+):
+    """
+    Find filtered recommandations
+    """
+    res = crud_reco.get_recommandations_by_subtype(db, subtype)
+    if res is None:
+        raise HTTPException(status_code=404, detail="No recommandation found")
+    return res
+
 
 @router.put("/", response_model=Recommandation, tags=["Recommandations"])
 async def new_recommandation(
