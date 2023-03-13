@@ -57,7 +57,7 @@ async def add_user(
 
     if not is_password_valid(new_user.password) :
         raise HTTPException(
-            status_code=400, detail="Le format de votre mot de passe n'est pas valide. Il doit faire au minimum 9 caractères."
+            status_code=400, detail="Mot de passe n'est pas valide. Il doit faire au minimum 9 caracteres."
         )
 
     if not is_mail_valid(new_user.mail) :
