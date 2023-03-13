@@ -138,7 +138,7 @@ class Room(Base):
         uselist= True,
     )
     
-    associated_indispos = relationship("Indisponibility", back_populates="room")
+    all_indisponibitilies = relationship("Indisponibility", back_populates="room")
 
 
  
