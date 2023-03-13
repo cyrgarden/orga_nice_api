@@ -77,7 +77,7 @@ def count_all(db:Session, component_model):
 
 #Function to email format validity
 def is_mail_valid(email: str):
-    regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    regex = '([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
     if(re.search(regex,email)):
         print("Valid Email")
         return True
