@@ -25,7 +25,7 @@ class User(UserBase):
     all_rooms: Union[List[Room], None] = None
     all_events: Union[List[Event], None] = None
     all_tasks: Union[List[Task], None] = None
-    all_indisponibitilies : Union [List[Indisponibility], None] = None
+    all_indispos : Union [List[Indisponibility], None] = None
 
 
     class Config:

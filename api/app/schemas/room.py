@@ -21,7 +21,7 @@ class RoomCreate(RoomBase):
 class Room(RoomBase):
     id: int
     events: Union[List[Event], None] = None
-    all_indisponibitilies : Union [List[Indisponibility], None] = None
+    all_indispos : Union [List[Indisponibility], None] = None
     
 
     class Config:

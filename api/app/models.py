@@ -82,7 +82,7 @@ class User(Base):
         uselist= True,
     )
     
-    all_indisponibitilies = relationship("Indisponibility", back_populates="user")
+    all_indispos = relationship("Indisponibility", back_populates="user")
 
 
 class Recommandation(Base):
@@ -109,10 +109,10 @@ class Indisponibility(Base):
     date = Column(String)
 
     user_id = Column(Integer, ForeignKey("users.id"))
-    user = relationship("User", back_populates="all_indisponibitilies")
+    user = relationship("User", back_populates="all_indispos")
     
     room_id = Column(Integer, ForeignKey("rooms.id"))
-    room = relationship("Room", back_populates="all_indisponibitilies")
+    room = relationship("Room", back_populates="all_indispos")
     
     
 class PendingPassword(Base):
@@ -139,7 +139,7 @@ class Room(Base):
         uselist= True,
     )
     
-    all_indisponibitilies = relationship("Indisponibility", back_populates="room")
+    all_indispos = relationship("Indisponibility", back_populates="room")
 
 
  
