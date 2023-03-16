@@ -15,13 +15,13 @@ def get_all_recommandation(
     return get_all(db, models.Recommandation, limit, offset, orderby, reverse, None)
 
 
-def get_recommandations_filtered(db:Session, type,price, origin_city, maximum_distance):
+def get_recommandations_filtered(db:Session, type,price, origin_city, maximum_distance, indispo):
     
     if type == "":
         all_reco = db.query(models.Recommandation).filter(models.Recommandation.price <= price).all()
 
     else:
-        all_reco = db.query(models.Recommandation).filter(models.Recommandation.recommandation_type == type).filter(models.Recommandation.price <= price).all()
+        all_reco = db.query(models.Recommandation).filter(models.Recommandation.recommandation_type == type).filter(models.Recommandation.price <= price).filter(indispo not in models.recommandation.indispo).all()
     
     origin = get_coordinates(origin_city, 'FR')
     print(origin)
@@ -31,7 +31,7 @@ def get_recommandations_filtered(db:Session, type,price, origin_city, maximum_di
     for reco in all_reco:
         if (compute_distance(origin[0], origin[1], reco.lat, reco.lon) <= maximum_distance) :
             final_reco_list.append(reco)
-            
+    
     return final_reco_list
         
 def get_recommandations_by_type(db:Session, reco_type:str):

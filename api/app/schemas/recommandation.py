@@ -10,7 +10,7 @@ class RecommandationBase(BaseModel):
     subtype : str
     place: str
     price : float
-    availabilites :str
+    indispo :str
     url :str
     lat : float
     lon : float
