@@ -46,7 +46,7 @@ async def get_filtered_recommandations(
     """
     Find filtered recommandations
     """
-    res = crud_reco.get_recommandations_filtered(db, type,price,origin_city, maximum_distance)
+    res = crud_reco.get_recommandations_filtered(db, type,price,origin_city, maximum_distance, indispo)
     if res is None:
         raise HTTPException(status_code=404, detail="No recommandation found")
     return res
