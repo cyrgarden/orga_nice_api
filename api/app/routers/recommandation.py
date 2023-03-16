@@ -41,7 +41,7 @@ async def get_filtered_recommandations(
     price: float = 100000.0,
     origin_city: str = '',
     maximum_distance: float = 100.0,
-    maximum_distance: str = '',
+    indispo: str = '',
 ):
     """
     Find filtered recommandations
