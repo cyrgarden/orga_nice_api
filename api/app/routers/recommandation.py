@@ -28,6 +28,7 @@ async def get_recommandations(
     """
     Find all recommandations
     """
+    print("start router")
     res = crud_reco.get_all_recommandation(db, limit, offset, order_by, reverse_order)
     if res is None:
         raise HTTPException(status_code=404, detail="No recommandation found")

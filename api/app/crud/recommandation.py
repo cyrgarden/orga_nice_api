@@ -43,15 +43,19 @@ def get_recommandations_by_subtype(db:Session, subtype:str):
     
     
 def create_recommandation(db: Session, reco: RecommandationCreate):
+    print("start crud")
     db_reco = models.Recommandation(**reco.dict())
     
+    print("location start")
     coordinates = get_coordinates(db_reco.place, 'FR')
     db_reco.lat = coordinates[0]
     db_reco.lon = coordinates[1]
+    print("location end")
     
     db.add(db_reco)
     db.commit()
     db.refresh(db_reco)
+    print("end crud")
     return db_reco
 
 
