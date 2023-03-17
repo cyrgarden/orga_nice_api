@@ -21,7 +21,7 @@ def get_recommandations_filtered(db:Session, type,price, origin_city, maximum_di
         all_reco = db.query(models.Recommandation).filter(models.Recommandation.price <= price).all()
 
     else:
-        all_reco = db.query(models.Recommandation).filter(models.Recommandation.recommandation_type == type).filter(models.Recommandation.price <= price).filter(indispo not in models.recommandation.indispo).all()
+        all_reco = db.query(models.Recommandation).filter(models.Recommandation.recommandation_type == type).filter(models.Recommandation.price <= price).filter(indispo not in models.Recommandation.indispo).all()
     
     origin = get_coordinates(origin_city, 'FR')
     print(origin)
