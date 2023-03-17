@@ -94,7 +94,7 @@ class Recommandation(Base):
     recommandation_type = Column(String, index=True)
     subtype = Column(String, index= True)
     place = Column(String, index=True)
-    indispo = Column(String)
+    all_indispos = relationship("RecoIndispo", back_populates="reco")
     url = Column(String, index=True)
     lat = Column(Float)
     lon = Column(Float)
@@ -113,6 +113,16 @@ class Indisponibility(Base):
     
     room_id = Column(Integer, ForeignKey("rooms.id"))
     room = relationship("Room", back_populates="all_indispos")
+
+class RecoIndispo(Base):
+    __tablename__ ='indisponibilities'
+    
+    
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(String)
+    
+    reco_id = Column(Integer, ForeignKey("recommandations.id"))
+    reco = relationship("Recommandation", back_populates="all_indispos")
     
     
 class PendingPassword(Base):

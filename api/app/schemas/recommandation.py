@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from app.schemas.utils import OrderBy, Search
+from app.schemas.indispo import RecoIndispo
 
 
 # Schema
@@ -10,7 +11,6 @@ class RecommandationBase(BaseModel):
     subtype : str
     place: str
     price : float
-    indispo :str
     url :str
     lat : float
     lon : float
@@ -22,6 +22,7 @@ class RecommandationCreate(RecommandationBase):
 
 class Recommandation(RecommandationBase):
     id: int
+    all_indispos : Union [List[RecoIndispo], None] = None
 
     class Config:
         orm_mode = True
