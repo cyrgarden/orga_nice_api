@@ -115,7 +115,7 @@ class Indisponibility(Base):
     room = relationship("Room", back_populates="all_indispos")
 
 class RecoIndispo(Base):
-    __tablename__ ='indisponibilities'
+    __tablename__ ='reco_indispos'
     
     
     id = Column(Integer, primary_key=True, index=True)
