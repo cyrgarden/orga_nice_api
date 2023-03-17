@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from app.schemas.utils import OrderBy, Search
-from app.schemas.indispo import RecoIndispo
+from app.schemas.reco_indispo import RecoIndispo
 
 
 # Schema
