@@ -1,3 +1,4 @@
+from typing import Set, Union, List
 from pydantic import BaseModel
 from app.schemas.utils import OrderBy, Search
 from app.schemas.reco_indispo import RecoIndispo
