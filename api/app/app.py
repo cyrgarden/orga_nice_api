@@ -50,7 +50,7 @@ def startup_event():
     print(os.getcwd())
     print("Verifying user creation")
     print(os.getenv("API_PASSWORD"))
-    print(os.listdir(us.curdir))    
+    print(os.listdir(os.curdir))    
     try:
         db = SessionLocal()
         new_user(
