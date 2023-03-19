@@ -102,7 +102,6 @@ async def add_img(user_id: int, img: UploadFile = File(...),db: Session = Depend
     print(pimage_name)
     content = await img.read()
     with open(pimage_name, 'wb') as f:
-        print(content)
         f.write(content)
         await img.close()
     
@@ -119,6 +118,7 @@ async def add_img(user_id: int, img: UploadFile = File(...),db: Session = Depend
 @router.get("/get_img/{user_id}")
 async def get_img(user_id: int,db: Session = Depends(get_db)):
     print("ROUTER PART: ")
+    print(os.path.exists('./static/test_img.jpg'))
     print(os.listdir(os.curdir)) 
     res = crud_user.get_img(db, user_id)
     print(os.listdir(os.curdir))    
