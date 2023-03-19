@@ -9,6 +9,7 @@ from app.schemas.new_password import NewPasswordBase
 import app.crud.user as crud_user
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse
+import os
 
 router: APIRouter = APIRouter(
     prefix="/users",
@@ -115,6 +116,8 @@ async def add_img(user_id: int, img: UploadFile = File(...),db: Session = Depend
 @router.get("/get_img/{user_id}")
 async def get_img(user_id: int,db: Session = Depends(get_db)):
     res = crud_user.get_img(db, user_id)
+    files = [f for f in os.listdir('.') if os.path.isfile(f)]
+        for f in files:
     
     return FileResponse(res)
     
