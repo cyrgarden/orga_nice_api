@@ -8,6 +8,7 @@ from app.schemas.room import Room, RoomCreate
 from app.schemas.new_password import NewPasswordBase
 import app.crud.user as crud_user
 from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import FileResponse
 
 router: APIRouter = APIRouter(
     prefix="/users",
@@ -111,4 +112,7 @@ async def add_img(user_id: int, img: UploadFile = File(...),db: Session = Depend
     return True
 
 
+@app.get("/get_img/{user_id}")
+async def main():
+    return crud_user.get_img(db, user_id:int)
 

@@ -78,3 +78,8 @@ def add_img(db:Session, user_id:int, img_url):
     db.refresh(user)
     return user
 
+def get_img(db:Session, user_id:int):
+    user = get_user_by_id(db, user_id)
+    return '../static/test_img.jpg'
+
+
