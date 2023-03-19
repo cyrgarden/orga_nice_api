@@ -99,12 +99,15 @@ async def read_users_me(user=Depends(get_current_user)):
 async def add_img(user_id: int, img: UploadFile = File(...),db: Session = Depends(get_db)):
     FILEPATH = './static/'
     pimage_name = FILEPATH + img.filename
+    print(pimage_name)
     content = await img.read()
     with open(pimage_name, 'wb') as f:
         print(content)
         f.write(content)
         await img.close()
     
+    print(os.listdir(os.curdir)) 
+    print(os.listdir('./static')) 
     file_url = 'http://45.155.169.59/' + pimage_name[1:]
     print(file_url)
 
