@@ -198,6 +198,15 @@ class Task(Base):
         uselist= True,
     )
     
+class InfoValidation(Base):
+    _tablename_ = "info_validation"
+
+    id = Column(INTEGER(11), primary_key=True, autoincrement=True)
+    user_id = Column(INTEGER(11))
+    validation_field = Column(String(255))
+    validation_code = Column(String(255))
+    timestamp = Column(String(255))
+
 class Logs(Base):
     __tablename__ = "logs"
 
