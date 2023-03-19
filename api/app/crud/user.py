@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app import models
 from app.schemas.room import RoomCreate
 from app.crud.utils import send_mail
+import os
 
 
 
@@ -79,6 +80,9 @@ def add_img(db:Session, user_id:int, img_url):
     return user
 
 def get_img(db:Session, user_id:int):
+    print(os.getcwd())
+    print(os.path.exists('./static'))
+    print(os.path.exists('../static'))
     user = get_user_by_id(db, user_id)
     return '../static/test_img.jpg'
 

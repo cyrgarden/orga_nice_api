@@ -115,6 +115,7 @@ async def add_img(user_id: int, img: UploadFile = File(...),db: Session = Depend
 @router.get("/get_img/{user_id}")
 async def get_img(user_id: int,db: Session = Depends(get_db)):
     res = crud_user.get_img(db, user_id)
+    print(os.getcwd())
     return FileResponse(res)
     
 
