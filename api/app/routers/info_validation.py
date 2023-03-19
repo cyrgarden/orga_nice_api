@@ -62,6 +62,8 @@ async def validate_infos(
         #Now we check if the code givent by user is the same that has been sent by mail/sms 
         if infos.validation_code == info_validation.validation_code :
             user = crud_user.get_user_by_id(db, infos.user_id)
+            print(user)
+            print(user.id)
             #We validate user mail or phone
             crud_user.validate_field(db, infos.validation_field, user)
             #We delete the validation info
