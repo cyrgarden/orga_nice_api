@@ -8,10 +8,10 @@ from app.schemas.task import Task, TaskCreate
 
 class EventBase(BaseModel):
     name: str
-    date: int
-    place: int
-    category: int
-    description: int
+    date: str
+    place: str
+    category: str
+    description: str
 
 
 class EventCreate(EventBase):
