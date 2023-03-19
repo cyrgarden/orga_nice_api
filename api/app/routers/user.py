@@ -7,6 +7,7 @@ from app.schemas.user import User, UserCreate, UserSubscribe
 from app.schemas.room import Room, RoomCreate
 from app.schemas.new_password import NewPasswordBase
 import app.crud.user as crud_user
+from fastapi import FastAPI, File, UploadFile
 
 router: APIRouter = APIRouter(
     prefix="/users",
@@ -90,4 +91,23 @@ async def add_user(
 async def read_users_me(user=Depends(get_current_user)):
     user.password = None
     return user
+
+
+@router.post("/add_img/{user_id}")
+async def add_img(db: Session = Depends(get_db),user_id: int, img : UploadFile):
+    FILEPATH = './static'
+    pimage_name = FILEPATH + img.filename
+    content = await img.read()
+    with open(pimage_name, 'wb') as f:
+        f.write(content)
+    finally:
+        await img.close
+    
+    file_url = 'http://45.155.169.59' + pimage_name[1:]
+
+    res = crud_user.add_img(db, user_id, file_url)
+
+    return True
+
+
 

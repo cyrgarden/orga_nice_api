@@ -69,3 +69,10 @@ def validate_field(db:Session, field: str, user):
 
 
 
+def add_img(db:Session, user_id:int, img_url):
+    user = get_user_by_id(db, user_id)
+    user.img_url = img_url
+    db.commit()
+    db.refresh(user)
+    return user
+

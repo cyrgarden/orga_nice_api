@@ -11,6 +11,7 @@ class UserBase(BaseModel):
     mail: str
     mail_confirmed: bool = False
     admin: bool = False
+    img : str = ''
     
 
 class UserCreate(UserBase):
