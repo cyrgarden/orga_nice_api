@@ -29,7 +29,6 @@ async def get_info_validation(user_id: int, db: Session = Depends(get_db)):
 async def new_info_validation(
     info_validation: InfoValidationCreate,
     db: Session = Depends(get_db),
-    user=Depends(get_current_user),
 ):
     """
     Create a new validation info
