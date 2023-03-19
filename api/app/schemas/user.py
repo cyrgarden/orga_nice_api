@@ -9,9 +9,9 @@ class UserBase(BaseModel):
     username: str
     password: Union[str, None] = None
     mail: str
+    mail_confirmed: bool = False
     admin: bool = False
-
-
+    
 
 class UserCreate(UserBase):
     password: str

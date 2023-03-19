@@ -52,3 +52,17 @@ def get_user_rooms(db:Session, user_id:int):
         return None
     print(user.all_rooms)
     return user.all_rooms
+
+def validate_field(db:Session, field: str, user)
+    if field == 'mail' :
+        user.mail_confirmed == True
+    
+    else : 
+        return None
+
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+
