@@ -100,7 +100,6 @@ async def add_img(user_id: int, img: UploadFile,db: Session = Depends(get_db)):
     content = await img.read()
     with open(pimage_name, 'wb') as f:
         f.write(content)
-    finally:
         await img.close
     
     file_url = 'http://45.155.169.59' + pimage_name[1:]
