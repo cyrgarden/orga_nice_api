@@ -44,7 +44,8 @@ app.openapi = hw_info_api_schema  # type: ignore
 
 @app.on_event("startup")
 def startup_event():
-    os.mkdir('./static')
+    if not os.path.exists('./static'):
+        os.mkdir('./static')
     print("Verifying user creation")
     print(os.getenv("API_PASSWORD"))
     try:
