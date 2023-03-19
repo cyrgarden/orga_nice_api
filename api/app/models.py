@@ -199,7 +199,7 @@ class Task(Base):
     )
     
 class InfoValidation(Base):
-    _tablename_ = "info_validation"
+    __tablename__ = "info_validation"
 
     id = Column(INTEGER(11), primary_key=True, autoincrement=True)
     user_id = Column(INTEGER(11))
