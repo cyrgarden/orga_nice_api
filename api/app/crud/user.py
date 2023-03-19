@@ -56,7 +56,7 @@ def get_user_rooms(db:Session, user_id:int):
 def validate_field(db:Session, field: str, user): 
     print("IN CRUD")
     if field == 'mail' :
-        user.mail_confirmed == True
+        user.mail_confirmed = True
     
     else : 
         print("not good")
