@@ -103,6 +103,7 @@ async def add_img(user_id: int, img: UploadFile = File(...),db: Session = Depend
         await img.close()
     
     file_url = 'http://45.155.169.59' + pimage_name[1:]
+    print(file_url)
 
     res = crud_user.add_img(db, user_id, file_url)
 
