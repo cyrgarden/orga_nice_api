@@ -107,7 +107,7 @@ async def add_img(user_id: int, img: UploadFile = File(...),db: Session = Depend
     
     print(os.listdir(os.curdir)) 
     print(os.listdir('./static')) 
-    file_url = 'http://45.155.169.59/' + pimage_name[1:]
+    file_url = './static/' + img.filename
     print(file_url)
 
     res = crud_user.add_img(db, user_id, file_url)

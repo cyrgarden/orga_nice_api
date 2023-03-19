@@ -88,6 +88,8 @@ def get_img(db:Session, user_id:int):
     print(os.path.exists('./static'))
     print(os.path.exists('./static/img_test.jpg'))
     user = get_user_by_id(db, user_id)
-    return './static/img_test.jpg'
+    return user.img
+    
+    #return './static/test_img.jpg'
 
 

@@ -58,7 +58,7 @@ async def get_room_users(room_id:int, db: Session = Depends(get_db)):
     users = crud_room.get_room_users(db, room_id)
     users_infos=[]
     for user in users:
-        users_infos.append({'username':user.username, 'mail': user.mail, 'all_events': user.all_events})
+        users_infos.append({'user_id': user.id,'username':user.username, 'mail': user.mail, 'all_events': user.all_events, 'img_url': user.img})
    
     if users is None:
         raise HTTPException(status_code=404, detail="Users not found")
