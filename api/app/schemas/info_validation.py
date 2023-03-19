@@ -24,6 +24,3 @@ class InfoValidationOrderBy(OrderBy):
     id = "id"
     user_id = "user_id"
 
-
-class InfoValidationSearch(Search):
-    user_id: None | int = None
