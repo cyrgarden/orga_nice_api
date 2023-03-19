@@ -49,10 +49,14 @@ async def validate_infos(
     infos: InfoValidationCreate,
     db: Session = Depends(get_db),
     
-):
+):  
+
+
     """
         Request to validate user's infos (mail or phone)
     """
+
+    print("ROUTER VALIDATION")
     try:
         #Checking if this validation infos exists
         info_validation = crud_validation.get_validations_by_user_id_and_field(db, infos.user_id, infos.validation_field)
@@ -62,6 +66,7 @@ async def validate_infos(
         #Now we check if the code givent by user is the same that has been sent by mail/sms 
         if infos.validation_code == info_validation.validation_code :
             user = crud_user.get_user_by_id(db, infos.user_id)
+            print("USER EXIST")
             print(user)
             print(user.id)
             #We validate user mail or phone
