@@ -53,7 +53,7 @@ def get_user_rooms(db:Session, user_id:int):
     print(user.all_rooms)
     return user.all_rooms
 
-def validate_field(db:Session, field: str, user)
+def validate_field(db:Session, field: str, user): 
     if field == 'mail' :
         user.mail_confirmed == True
     
