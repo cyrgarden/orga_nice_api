@@ -125,7 +125,9 @@ async def get_img(user_id: int,db: Session = Depends(get_db)):
     
     file_res = FileResponse(res)
     print(file_res.path)
-    print(file_res.headers())
+    print(file_res.headers)
+    print(file_res.media_type)
+    print(file_res.filename)
     return file_res
     
 
