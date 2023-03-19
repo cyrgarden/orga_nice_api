@@ -96,7 +96,7 @@ async def read_users_me(user=Depends(get_current_user)):
 
 @router.post("/add_img/{user_id}")
 async def add_img(user_id: int, img: UploadFile = File(...),db: Session = Depends(get_db)):
-    FILEPATH = './static'
+    FILEPATH = './static/'
     pimage_name = FILEPATH + img.filename
     content = await img.read()
     with open(pimage_name, 'wb') as f:
