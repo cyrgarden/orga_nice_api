@@ -82,7 +82,8 @@ def add_img(db:Session, user_id:int, img_url):
 def get_img(db:Session, user_id:int):
     print(os.getcwd())
     files = [f for f in os.listdir('.') if os.path.isfile(f)]
-        for f in files:
+    for f in files:
+        print(f)
     print(os.path.exists('./static'))
     print(os.path.exists('../static'))
     user = get_user_by_id(db, user_id)
