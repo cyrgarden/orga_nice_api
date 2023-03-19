@@ -123,6 +123,9 @@ async def get_img(user_id: int,db: Session = Depends(get_db)):
     res = crud_user.get_img(db, user_id)
     print(os.listdir(os.curdir))    
     
-    return FileResponse(res)
+    file_res = FileResponse(res)
+    print(file_res.path)
+    print(file_res.headers())
+    return file_res
     
 
