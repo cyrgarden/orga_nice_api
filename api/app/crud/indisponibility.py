@@ -12,7 +12,7 @@ def create_indispo(db: Session, new_indispo: IndisponibilityCreate):
     db.refresh(db_indispo)
     return db_indispo
 
-def get_user_infos_by_room_and_date(db: Session,room_id: int, date :str)
+def get_user_infos_by_room_and_date(db: Session,room_id: int, date :str):
     indispo = db.query(models.Indisponibility).filter(models.Indisponibility.room_id == room_id).filter(models.Indisponibility.date == date).first()
     if indispo is None :
         return None
