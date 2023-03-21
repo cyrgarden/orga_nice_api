@@ -29,9 +29,9 @@ async def create_indispo(
         return res
     except Exception as e:
         raise error_to_status_code(e)
+        
 
-
-@router.get("/{room_id}/{date}", response_model = int, tags=["Indisponibilities"])
+@router.get("/{room_id}/{date}", response_model = List[int], tags=["Indisponibilities"])
 async def get_user_infos_by_room_and_date(room_id:int, date:str, db: Session =  Depends(get_db)):
     res = crud_indispo.get_user_infos_by_room_and_date(db, room_id, date)
     if res == None :
