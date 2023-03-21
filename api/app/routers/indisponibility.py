@@ -9,7 +9,7 @@ from app.schemas.indisponibility import Indisponibility, IndisponibilityCreate
 import app.crud.indisponibility as crud_indispo
 
 
-class UserQuery():
+class UserQuery:
     room_id: int
     date: str
 
