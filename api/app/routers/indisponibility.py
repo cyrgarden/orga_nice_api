@@ -9,6 +9,10 @@ from app.schemas.indisponibility import Indisponibility, IndisponibilityCreate
 import app.crud.indisponibility as crud_indispo
 
 
+class UserQuery():
+    room_id: int
+    date: str
+
 router: APIRouter = APIRouter(
     prefix="/indispo",
     tags=["Indisponibilities"],
@@ -31,9 +35,9 @@ async def create_indispo(
         raise error_to_status_code(e)
         
 
-@router.get("/{room_id}/{date}", response_model = List[int], tags=["Indisponibilities"])
-async def get_user_infos_by_room_and_date(room_id:int, date:str, db: Session =  Depends(get_db)):
-    res = crud_indispo.get_user_infos_by_room_and_date(db, room_id, date)
+@router.get("/indispo_users", response_model = List[int], tags=["Indisponibilities"])
+async def get_user_infos_by_room_and_date(user_query: UserQuery, db: Session =  Depends(get_db)):
+    res = crud_indispo.get_user_infos_by_room_and_date(db, user_query.room_id, user_query.date)
     if res == None :
         raise HTTPException(status_code=404, detail=" Can't fint this user")
     
