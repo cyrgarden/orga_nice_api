@@ -31,6 +31,14 @@ async def create_indispo(
         raise error_to_status_code(e)
 
 
+@router.get("/{room_id}/{date}", response_model = int, tags=["Indisponibilities"])
+async def get_user_infos_by_room_and_date(room_id:int, date:str, db: Session =  Depends(get_db)):
+    res = crud_indispo.get_user_infos_by_room_and_date(db, room_id, date)
+    if res == None :
+        raise HTTPException(status_code=404, detail=" Can't fint this user")
+    
+    return res
+
 @router.delete("/{indispo_id}", response_model=bool, tags=["Indisponibilities"])
 async def delete_indispo(
     indispo_id: int, db: Session = Depends(get_db)

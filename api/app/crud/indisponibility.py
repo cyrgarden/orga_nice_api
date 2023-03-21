@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app import models
 from app.crud.utils import get_all
+from app.crud.user import get_user_by_id
 from app.schemas.indisponibility import Indisponibility, IndisponibilityCreate
 
 
@@ -11,6 +12,17 @@ def create_indispo(db: Session, new_indispo: IndisponibilityCreate):
     db.refresh(db_indispo)
     return db_indispo
 
+def get_user_infos_by_room_and_date(db: Session,room_id: int, date :str)
+    indispo = db.query(models.Indisponibility).filter(models.Indisponibility.room_id == room_id).filter(models.Indisponibility.date == date).first()
+    if indispo is None :
+        return None
+
+    user = get_user_by_id(db, indispo.user_id)
+
+    if user is None: 
+        return None
+    
+    return user.id
 
 def delete_indispo(db: Session, indispo_id: int):
     db_indispo = db.query(models.Indisponibility).filter(models.Indisponibility.id == indispo_id).first()
