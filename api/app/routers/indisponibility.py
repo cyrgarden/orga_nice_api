@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from pydantic import BaseModel
 from app import models
 from typing import List
 from sqlalchemy.orm import Session
@@ -9,7 +10,7 @@ from app.schemas.indisponibility import Indisponibility, IndisponibilityCreate
 import app.crud.indisponibility as crud_indispo
 
 
-class UserQuery:
+class UserQuery(BaseModel):
     room_id: int
     date: str
 
