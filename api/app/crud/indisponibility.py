@@ -13,9 +13,14 @@ def create_indispo(db: Session, new_indispo: IndisponibilityCreate):
     return db_indispo
 
 def get_user_infos_by_room_and_date(db: Session,room_id: int, date :str):
+    print(room_id)
+    print(date)
     indispos = db.query(models.Indisponibility).filter(models.Indisponibility.room_id == room_id).filter(models.Indisponibility.date == date).all()
+    print(indispos)
     if indispos is None :
         return None
+
+    print(len(indispos))
 
     id_list = []
 
@@ -27,7 +32,8 @@ def get_user_infos_by_room_and_date(db: Session,room_id: int, date :str):
     
     if len(id_list) == 0 :
         return None
-        
+
+    print(id_list)
     return id_list
 
 def delete_indispo(db: Session, indispo_id: int):
