@@ -14,6 +14,7 @@ from app.routers.event import router as event_router
 from app.routers.task import router as task_router
 from app.routers.pending_password import router as pending_password_router
 from app.routers.errand import router as errand_router
+from app.routers.indisponibility import router as indispo_router
 from app.routers.reco_indispo import router as reco_indispo_router
 from app.routers.info_validation import router as info_validation_router
 from app.crud.user import get_user
@@ -99,5 +100,6 @@ app.include_router(recommandation_router)
 app.include_router(event_router)
 app.include_router(task_router)
 app.include_router(pending_password_router)
+app.include_router(indispo_router)
 app.include_router(reco_indispo_router)
 app.include_router(info_validation_router)
