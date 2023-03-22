@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from app import models
 from app.crud.utils import get_all
-from app.crud.user import get_user_by_id
+from app.crud.user import get_user_by_id, get_user
 from app.schemas.indisponibility import Indisponibility, IndisponibilityCreate
 
 
@@ -28,7 +28,7 @@ def get_user_infos_by_room_and_date(db: Session,room_id: int, date :str):
         user = get_user_by_id(db, indispo.user_id)
         if user == None :
             pass
-        id_list.append(user.id)
+        id_list.append(user.username)
     
     if len(id_list) == 0 :
         return None

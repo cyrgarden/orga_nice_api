@@ -36,7 +36,7 @@ async def create_indispo(
         raise error_to_status_code(e)
         
 
-@router.post("/indispo_users", response_model = List[int], tags=["Indisponibilities"])
+@router.post("/indispo_users", response_model = List[str], tags=["Indisponibilities"])
 async def get_user_infos_by_room_and_date(user_query: UserQuery, db: Session =  Depends(get_db)):
     res = crud_indispo.get_user_infos_by_room_and_date(db, user_query.room_id, user_query.date)
     if res == None :

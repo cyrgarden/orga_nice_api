@@ -129,5 +129,12 @@ async def get_img(user_id: int,db: Session = Depends(get_db)):
     print(file_res.media_type)
     print(file_res.filename)
     return file_res
+
+
+@router.get("/get_img/username/{username}")
+async def get_img_by_username(username: str,db: Session = Depends(get_db)):
+    res = crud_user.get_img_by_username(db, username)
+    file_res = FileResponse(res)
+    return file_res
     
 
