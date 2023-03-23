@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app import models
 from app.crud.utils import get_all, get_coordinates, compute_distance
 from app.schemas.recommandation import Recommandation, RecommandationCreate, RecommandationOrderBy
+from app.crud.reco_indispo import 
 from sqlalchemy.sql.expression import func
 
 
@@ -20,7 +21,15 @@ def get_recommandations_filtered(db:Session, type,price, origin_city, maximum_di
         all_reco = db.query(models.Recommandation).filter(models.Recommandation.price <= price).all()
 
     else:
-        all_reco = db.query(models.Recommandation).filter(models.Recommandation.recommandation_type == type).filter(models.Recommandation.price <= price).filter(indispo != models.Recommandation.all_indispos.date).all()
+        all_reco = db.query(models.Recommandation).filter(models.Recommandation.recommandation_type == type).filter(models.Recommandation.price <= price).all()
+        
+        if date != '':
+            for reco in all_reco : 
+                for reco_indispo in reco.all_indispos:
+                    if reco_indispo == indispo.date : 
+                        all_reco.remove(reco_indispo)
+            
+
     
     origin = get_coordinates(origin_city, 'FR')
     print(origin)
