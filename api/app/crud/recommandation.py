@@ -2,7 +2,6 @@ from sqlalchemy.orm import Session
 from app import models
 from app.crud.utils import get_all, get_coordinates, compute_distance
 from app.schemas.recommandation import Recommandation, RecommandationCreate, RecommandationOrderBy
-from app.crud.reco_indispo import 
 from sqlalchemy.sql.expression import func
 
 
