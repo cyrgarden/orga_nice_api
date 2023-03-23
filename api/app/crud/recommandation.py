@@ -22,7 +22,7 @@ def get_recommandations_filtered(db:Session, type,price, origin_city, maximum_di
     else:
         all_reco = db.query(models.Recommandation).filter(models.Recommandation.recommandation_type == type).filter(models.Recommandation.price <= price).all()
         
-        if date != '':
+        if indispo != '':
             for reco in all_reco : 
                 for reco_indispo in reco.all_indispos:
                     if reco_indispo == indispo.date : 
