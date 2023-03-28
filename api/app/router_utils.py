@@ -12,23 +12,16 @@ from app import auth, models  # type: ignore
 import app.crud.user as crud_user
 
 
-
 POSTGRES_USER = os.getenv('POSTGRES_USER')
 POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 POSTGRES_DB = os.getenv('POSTGRES_DB')
 POSTGRES_PORT = os.getenv('POSTGRES_PORT')
 POSTGRES_SERVER = os.getenv('POSTGRES_SERVER')
 
-print(POSTGRES_USER)
-print(POSTGRES_PASSWORD)
-print(POSTGRES_DB)
-print(POSTGRES_PORT)
-print(POSTGRES_SERVER)
 
-#SQLALCHEMY_DATABASE_URL = f"postgresql://root:fastapi@db:5432/fastapi"
+# SQLALCHEMY_DATABASE_URL = f"postgresql://root:fastapi@db:5432/fastapi"
 SQLALCHEMY_DATABASE_URL = f"postgresql://fastapi:fastapi@db:{POSTGRES_PORT}/{POSTGRES_DB}"
 
-print(SQLALCHEMY_DATABASE_URL)
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL
@@ -50,7 +43,8 @@ def get_db():
 
 
 def logger(db: Session, user, action):
-    log = LogCreate(user_id=user.id, action=action, timestamp=datetime.datetime.now())
+    log = LogCreate(user_id=user.id, action=action,
+                    timestamp=datetime.datetime.now())
     add_log(db, log)
 
 
@@ -69,7 +63,6 @@ def error_to_status_code(error: Exception):
     ):
         return HTTPException(status_code=409, detail="Duplicate entry")
     else:
-        print(str(error))
         return HTTPException(status_code=500, detail="Unknown internal server error")
 
 
@@ -82,7 +75,8 @@ async def get_current_user(
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, auth.SECRET_KEY, algorithms=[auth.ALGORITHM])  # type: ignore
+        payload = jwt.decode(token, auth.SECRET_KEY, algorithms=[
+                             auth.ALGORITHM])  # type: ignore
         username: str = payload.get("sub")  # type: ignore
         if username is None:
             raise credentials_exception
@@ -95,4 +89,3 @@ async def get_current_user(
     if user is None:
         raise credentials_exception
     return user
-

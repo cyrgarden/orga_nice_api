@@ -1,9 +1,7 @@
 from sqlalchemy.orm import Session
 from app.crud.utils import get_all
 from app import models
-from app.schemas.task import Task, TaskCreate, TaskOrderBy
-from app.schemas.user import User
-import app.crud.event as crud_event
+from app.schemas.task import TaskCreate, TaskOrderBy
 
 
 def create_task(db: Session, task: TaskCreate):
@@ -31,5 +29,3 @@ def delete_task(db: Session, task_id: int):
     db.delete(db_task)
     db.commit()
     return db_task
-
-

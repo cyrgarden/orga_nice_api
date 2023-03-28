@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 from app import models
-from app.crud.utils import get_all
-from app.schemas.reco_indispo import RecoIndispo, RecoIndispoCreate
+from app.schemas.reco_indispo import RecoIndispoCreate
 
 
 def create_indispo(db: Session, new_indispo: RecoIndispoCreate):

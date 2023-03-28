@@ -3,12 +3,10 @@ from sqlalchemy.orm import Session, Query  # type: ignore
 from app.schemas.utils import OrderBy, Search
 from typing import Union
 import requests
-import random
 from math import sin, cos, sqrt, atan2, radians
 import re
 import smtplib
 from email.message import EmailMessage
-import os
 
 
 def criteria_to_query(query: Query, model: object, criteria: object):
@@ -48,24 +46,15 @@ def get_all(
     reverse: bool,
     criteria: Union[Search, None] = None
 ):
-    print("FOR UTILS GET_ALL FUNCTION: \n ")
-    print(f"model : {model}")
-    print(f"limit: {limit}")
-    print(f"offset: {offset}")
-    print(f"orderby: {orderby}")
-    print(f"reverse: {reverse}")
-    print(f"criteria: {criteria}")
+    
     """
     Find all elements of a given model with search criteria.
     """
     order_by_field = getattr(model, orderby.value)
-    print("check 1 ")
     if reverse:
         order_by_field = desc(order_by_field)
     query = db.query(model)
-    print("check 2 ")
     query = criteria_to_query(query, model, criteria)
-    print("check 3 ")
 
     return query.order_by(order_by_field).offset(offset).limit(limit).all()
 
@@ -79,10 +68,8 @@ def count_all(db:Session, component_model):
 def is_mail_valid(email: str):
     regex = '([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
     if(re.search(regex,email)):
-        print("Valid Email")
         return True
     else:
-        print("Invalid Email")
         return False
 
 def is_password_valid(password : str ) -> bool :
@@ -131,12 +118,10 @@ def compute_distance(lat1, lon1, lat2, lon2) -> float :
     a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
     distance = R * c
-    #print("Result:", distance)
     return distance
 
 def get_coordinates(city_name, country_code):
     api_key = '25d7c5abdb7b1ffbabe8cb99ccc3afc7'
-    #res = requests.get(url=f'http://api.openweathermap.org/geo/1.0/direct?q={city_name}&limit={limit}', headers=headers, auth=auth)
     res = requests.get(url=f'http://api.openweathermap.org/geo/1.0/direct?q={city_name},{country_code}&limit=1&appid={api_key}')
     return (res.json()[0]['lat'], res.json()[0]['lon'])
 

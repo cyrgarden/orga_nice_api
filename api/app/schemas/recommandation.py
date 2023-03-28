@@ -1,6 +1,6 @@
-from typing import Set, Union, List
+from typing import Union, List
 from pydantic import BaseModel
-from app.schemas.utils import OrderBy, Search
+from app.schemas.utils import OrderBy
 from app.schemas.reco_indispo import RecoIndispo
 
 
@@ -9,21 +9,21 @@ from app.schemas.reco_indispo import RecoIndispo
 class RecommandationBase(BaseModel):
     label: str
     recommandation_type: str
-    subtype : str
+    subtype: str
     place: str
-    price : float
-    url :str
-    lat : float
-    lon : float
+    price: float
+    url: str
+    lat: float
+    lon: float
 
 
 class RecommandationCreate(RecommandationBase):
-   pass
+    pass
 
 
 class Recommandation(RecommandationBase):
     id: int
-    all_indispos : Union [List[RecoIndispo], None] = None
+    all_indispos: Union[List[RecoIndispo], None] = None
 
     class Config:
         orm_mode = True
@@ -32,4 +32,3 @@ class Recommandation(RecommandationBase):
 class RecommandationOrderBy(OrderBy):
     id = "id"
     label = "name"
-

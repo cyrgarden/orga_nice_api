@@ -1,8 +1,8 @@
-from typing import Set, Union, List
+from typing import List
 from pydantic import BaseModel
-from app.schemas.utils import OrderBy, Search
 
 # Schema
+
 
 class SurveyBase(BaseModel):
     label: str
@@ -11,7 +11,7 @@ class SurveyBase(BaseModel):
 
 
 class SurveyCreate(SurveyBase):
-   pass
+    pass
 
 
 class Survey(SurveyBase):
@@ -19,4 +19,3 @@ class Survey(SurveyBase):
 
     class Config:
         orm_mode = True
-

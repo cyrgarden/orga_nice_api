@@ -1,8 +1,7 @@
 from sqlalchemy.orm import Session
 from app import models
-from app.crud.utils import get_all
-from app.crud.user import get_user_by_id, get_user
-from app.schemas.indisponibility import Indisponibility, IndisponibilityCreate
+from app.crud.user import get_user_by_id
+from app.schemas.indisponibility import IndisponibilityCreate
 
 
 def create_indispo(db: Session, new_indispo: IndisponibilityCreate):
@@ -12,35 +11,33 @@ def create_indispo(db: Session, new_indispo: IndisponibilityCreate):
     db.refresh(db_indispo)
     return db_indispo
 
-def get_user_infos_by_room_and_date(db: Session,room_id: int, date :str):
-    print(room_id)
-    print(date)
-    indispos = db.query(models.Indisponibility).filter(models.Indisponibility.room_id == room_id).filter(models.Indisponibility.date == date).all()
-    print(indispos)
-    if indispos is None :
+
+def get_user_infos_by_room_and_date(db: Session, room_id: int, date: str):
+    indispos = db.query(models.Indisponibility).filter(
+        models.Indisponibility.room_id == room_id).filter(models.Indisponibility.date == date).all()
+    if indispos is None:
         return None
 
-    print(len(indispos))
 
     id_list = []
 
-    for indispo in indispos :
+    for indispo in indispos:
         user = get_user_by_id(db, indispo.user_id)
-        if user == None :
+        if user == None:
             pass
         id_list.append(user.username)
-    
-    if len(id_list) == 0 :
+
+    if len(id_list) == 0:
         return None
 
-    print(id_list)
     return id_list
 
+
 def delete_indispo(db: Session, indispo_id: int):
-    db_indispo = db.query(models.Indisponibility).filter(models.Indisponibility.id == indispo_id).first()
+    db_indispo = db.query(models.Indisponibility).filter(
+        models.Indisponibility.id == indispo_id).first()
     if db_indispo is None:
         return None
     db.delete(db_indispo)
     db.commit()
     return db_indispo
-

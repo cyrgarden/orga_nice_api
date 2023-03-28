@@ -1,30 +1,12 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float,Table, UniqueConstraint, DateTime
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float, Table, UniqueConstraint, DateTime
 from sqlalchemy.orm import relationship
 
 from .database import Base
-from sqlalchemy.dialects.mysql import INTEGER, TINYINT  # type: ignore
+from sqlalchemy.dialects.mysql import INTEGER  # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from sqlalchemy.ext.declarative import declarative_base  # type: ignore
 from typing import Optional
 
-
-
-
-"""UserIndispo = Table(
-    "user_indispo",
-    Base.metadata,
-    Column("user_id", ForeignKey("users.id")),
-    Column("indispo_id",ForeignKey("indisponibilities.id")),
-    UniqueConstraint("user_id", "indispo_id"),
-)
-
-RoomIndispo = Table(
-    "room_indispo",
-    Base.metadata,
-    Column("room_id", ForeignKey("rooms.id")),
-    Column("indispo_id",ForeignKey("indisponibilities.id")),
-    UniqueConstraint("room_id", "indispo_id"),
-)"""
 
 UserRoomCompat = Table(
     "user_room_compat",
@@ -53,37 +35,36 @@ UserTaskAssignation = Table(
 )
 
 
-
 class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(255), unique=True)
     mail = Column(String(255), unique=True)
-    img = Column(String, default ='')
-    mail_confirmed = Column(Boolean, default = False)
+    img = Column(String, default='')
+    mail_confirmed = Column(Boolean, default=False)
     password = Column(String(255))
-    admin = Column(Boolean, default = False)
+    admin = Column(Boolean, default=False)
     all_rooms = relationship(
         "Room",
-        secondary= UserRoomCompat,
-        back_populates="users", 
-        uselist= True,
+        secondary=UserRoomCompat,
+        back_populates="users",
+        uselist=True,
     )
     all_events = relationship(
         "Event",
-        secondary= UserEventParticipation,
-        back_populates="participants", 
-        uselist= True,
+        secondary=UserEventParticipation,
+        back_populates="participants",
+        uselist=True,
     )
-    
+
     all_tasks = relationship(
         "Task",
-        secondary= UserTaskAssignation,
-        back_populates="owners", 
-        uselist= True,
+        secondary=UserTaskAssignation,
+        back_populates="owners",
+        uselist=True,
     )
-    
+
     all_indispos = relationship("Indisponibility", back_populates="user")
 
 
@@ -94,7 +75,7 @@ class Recommandation(Base):
     price = Column(Float)
     label = Column(String, index=True)
     recommandation_type = Column(String, index=True)
-    subtype = Column(String, index= True)
+    subtype = Column(String, index=True)
     place = Column(String, index=True)
     all_indispos = relationship("RecoIndispo", back_populates="reco")
     url = Column(String, index=True)
@@ -102,40 +83,37 @@ class Recommandation(Base):
     lon = Column(Float)
 
 
-
 class Indisponibility(Base):
-    __tablename__ ='indisponibilities'
-    
-    
+    __tablename__ = 'indisponibilities'
+
     id = Column(Integer, primary_key=True, index=True)
     date = Column(String)
 
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="all_indispos")
-    
+
     room_id = Column(Integer, ForeignKey("rooms.id"))
     room = relationship("Room", back_populates="all_indispos")
 
+
 class RecoIndispo(Base):
-    __tablename__ ='reco_indispos'
-    
-    
+    __tablename__ = 'reco_indispos'
+
     id = Column(Integer, primary_key=True, index=True)
     date = Column(String)
-    
+
     reco_id = Column(Integer, ForeignKey("recommandations.id"))
     reco = relationship("Recommandation", back_populates="all_indispos")
-    
-    
+
+
 class PendingPassword(Base):
     __tablename__ = "pending_passwords"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Float)
     new_password = Column(String)
-    
 
-    
+
 class Room(Base):
     __tablename__ = "rooms"
     id = Column(Integer, primary_key=True, index=True)
@@ -146,15 +124,13 @@ class Room(Base):
 
     users = relationship(
         "User",
-        secondary= UserRoomCompat,
-        back_populates="all_rooms", 
-        uselist= True,
+        secondary=UserRoomCompat,
+        back_populates="all_rooms",
+        uselist=True,
     )
-    
+
     all_indispos = relationship("Indisponibility", back_populates="room")
 
-
- 
 
 class Event(Base):
     __tablename__ = "events"
@@ -167,18 +143,15 @@ class Event(Base):
 
     room_id = Column(Integer, ForeignKey("rooms.id"))
     room = relationship("Room", back_populates="events")
-    
-    associated_tasks = relationship("Task", back_populates="event")
 
+    associated_tasks = relationship("Task", back_populates="event")
 
     participants = relationship(
         "User",
-        secondary= UserEventParticipation,
-        back_populates="all_events", 
-        uselist= True,
+        secondary=UserEventParticipation,
+        back_populates="all_events",
+        uselist=True,
     )
-
-
 
 
 class Task(Base):
@@ -187,18 +160,18 @@ class Task(Base):
     name = Column(String, index=True)
     completed = Column(Boolean, index=True)
     description = Column(String, index=True)
-    
+
     event_id = Column(Integer, ForeignKey("events.id"))
     event = relationship("Event", back_populates="associated_tasks")
-    
-    
+
     owners = relationship(
         "User",
-        secondary= UserTaskAssignation,
-        back_populates="all_tasks", 
-        uselist= True,
+        secondary=UserTaskAssignation,
+        back_populates="all_tasks",
+        uselist=True,
     )
-    
+
+
 class InfoValidation(Base):
     __tablename__ = "info_validation"
 
@@ -207,6 +180,7 @@ class InfoValidation(Base):
     validation_field = Column(String(255))
     validation_code = Column(String(255))
     timestamp = Column(String(255))
+
 
 class Logs(Base):
     __tablename__ = "logs"
@@ -217,5 +191,3 @@ class Logs(Base):
     action = Column(String(2048))
 
     user = relationship("User")
-
-

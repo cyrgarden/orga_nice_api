@@ -8,4 +8,3 @@ class OrderBy(str, Enum):
 
 class Search(BaseModel):
     pass
-

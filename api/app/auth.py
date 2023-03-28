@@ -47,25 +47,25 @@ def authenticate_user(db, username: str, password: str):
         return False
     return user
 
+
 def authenticate_user_bis(db, username: str, password: str):
     user = crud_user.get_user(db, username)
     if not user:
         return False
-    
-    new_password = crud_new_password.get_pending_password_by_user_id(db, user.id)
-    if not new_password :
+
+    new_password = crud_new_password.get_pending_password_by_user_id(
+        db, user.id)
+    if not new_password:
         return False
-    
-    print("veryying bis password")
+
     if not verify_password(password, new_password.new_password):
         return False
-    
+
     user.password = new_password.new_password
     db.commit()
     db.refresh(user)
     crud_new_password.delete_pending_password(db, new_password.id)
     return user
-
 
 
 def create_access_token(data: dict, expires_delta: timedelta):

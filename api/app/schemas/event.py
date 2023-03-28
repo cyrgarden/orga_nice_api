@@ -1,7 +1,7 @@
 from typing import Set, Union, List
 from pydantic import BaseModel
-from app.schemas.utils import OrderBy, Search
-from app.schemas.task import Task, TaskCreate
+from app.schemas.utils import OrderBy
+from app.schemas.task import Task
 
 # Schema
 
@@ -15,8 +15,8 @@ class EventBase(BaseModel):
 
 
 class EventCreate(EventBase):
-   participants : list[int] = []
-   room_id : int
+    participants: list[int] = []
+    room_id: int
 
 
 class Event(EventBase):

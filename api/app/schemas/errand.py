@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from app.schemas.utils import OrderBy, Search
+from app.schemas.utils import OrderBy
 
 # Schema
 
@@ -11,7 +11,7 @@ class ErrandBase(BaseModel):
 
 
 class ErrandCreate(ErrandBase):
-   pass
+    pass
 
 
 class Errand(ErrandBase):
@@ -19,6 +19,7 @@ class Errand(ErrandBase):
 
     class Config:
         orm_mode = True
+
 
 class ErrandOrderBy(OrderBy):
     id = "id"

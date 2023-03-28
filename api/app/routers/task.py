@@ -1,10 +1,7 @@
 from sqlalchemy.orm import Session
-from app import models
-from typing import List
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, Depends, HTTPException, status
-import app.models as models
-from app.router_utils import get_db, get_current_user, logger, error_to_status_code
+from fastapi import APIRouter, Depends, HTTPException
+from app.router_utils import get_db, error_to_status_code
 from app.schemas.task import Task, TaskCreate, TaskOrderBy
 import app.crud.task as crud_task
 
@@ -13,6 +10,7 @@ router: APIRouter = APIRouter(
     prefix="/task",
     tags=["Tasks"],
 )
+
 
 @router.get("/", response_model=list[Task], tags=["Tasks"])
 async def get_Tasks(
@@ -30,6 +28,7 @@ async def get_Tasks(
         raise HTTPException(status_code=404, detail="No Task found")
     return res
 
+
 @router.put("/", response_model=Task, tags=["Tasks"])
 async def new_task(
     task: TaskCreate,
@@ -41,7 +40,8 @@ async def new_task(
     try:
         res = crud_task.create_task(db, task)
         if res is None:
-            raise HTTPException(status_code=404, detail="Error while creating an Task ")
+            raise HTTPException(
+                status_code=404, detail="Error while creating an Task ")
         return res
     except Exception as e:
         raise error_to_status_code(e)

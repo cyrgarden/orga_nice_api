@@ -1,23 +1,21 @@
-from typing import Set, Union, List
 from pydantic import BaseModel
-from app.schemas.utils import OrderBy, Search
-from app.schemas.task import Task, TaskCreate
+from app.schemas.utils import OrderBy
 
 # Schema
 
 
 class RecoIndispoBase(BaseModel):
-    date : str
+    date: str
 
 
 class RecoIndispoCreate(RecoIndispoBase):
-   reco_id : int
+    reco_id: int
 
 
 class RecoIndispo(RecoIndispoBase):
     id: int
-    reco_id : int
-   
+    reco_id: int
+
     class Config:
         orm_mode = True
 
